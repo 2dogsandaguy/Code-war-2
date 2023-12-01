@@ -1,0 +1,23 @@
+{
+  "name": "code-war-2",
+  "version": "1.0.0",
+  "description": "get stuff done",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js", 
+    "test": "test"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2dogsandaguy/Code-war-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2dogsandaguy/Code-war-2/issues"
+  },
+  "homepage": "https://github.com/2dogsandaguy/Code-war-2#readme"
+}

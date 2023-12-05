@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const {Workout} = require("./models")
-
+const routes = require("./routes");
 const db = require('./config/connection.js');
 
 const PORT = process.env.PORT || 3001;

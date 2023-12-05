@@ -11,32 +11,35 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware, // Pass authMiddleware directly to context
-  introspection: true,
+ 
 });
 
-// Add a custom error handler middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-  });
-  
+// Middleware for parsing JSON and URL-encoded data
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Start Apollo Server before applying middleware
 const startApolloServer = async () => {
   try {
     await server.start();
 
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
+    // Apollo Server middleware
+    app.use('/graphql', expressMiddleware(server, { context: authMiddleware }));
 
-    app.use('/graphql', expressMiddleware(server, {
-        context: authMiddleware }));
-
+    // Static assets for production
     if (process.env.NODE_ENV === 'production') {
       app.use(express.static(path.join(__dirname, '../client/dist')));
       app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
       });
     }
+
+    // Custom error handling middleware
+    app.use((err, req, res, next) => {
+      console.error('Error:', err.message);
+      console.error('Stack trace:', err.stack);
+      res.status(500).send('Internal Server Error');
+    });
 
     db.once('open', () => {
       app.listen(PORT, () => {

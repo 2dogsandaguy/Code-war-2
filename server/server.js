@@ -1,15 +1,34 @@
 const express = require('express');
 const path = require('path');
-const {Workout} = require("./models")
-const routes = require("./routes");
+const { Workout } = require("./models")
+const { ApolloServer } = require('@apollo/server');
+const { expressMiddleware } = require('@apollo/server/express4');
 const db = require('./config/connection.js');
+const { typeDefs, resolvers } = require('./schemas/index.js');
+const { authMiddleware } = require('./utils/auth.js');
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware, // Pass authMiddleware directly to context
+
+});
+
+const startApolloServer = async () => {
+    await server.start();
+    
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use('/graphql', expressMiddleware(server, {
+    context: authMiddleware
+}));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/', (req, res) => {
@@ -52,4 +71,7 @@ db.once('open', () => {
             //console.log("cool beans butt facebook facebook")
       });
   });
+}
 
+
+startApolloServer();

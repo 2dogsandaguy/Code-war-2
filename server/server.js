@@ -3,8 +3,8 @@ const path = require('path');
 
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
-const db = require('./config/connection.js');
-const { typeDefs, resolvers } = require('./schemas/index.js');
+const db = require('./config/connection');
+const { typeDefs, resolvers } = require('./schemas');
 
 // Since we're using GraphQL, we do not need a 'routes' directory.
 // const routes = require("./routes");
@@ -20,21 +20,23 @@ const server = new ApolloServer({
  
 });
 
-// Middleware for parsing JSON and URL-encoded data
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
 // Start Apollo Server before applying middleware
 const startApolloServer = async () => {
   try {
     await server.start();
-
+    
+    // Middleware for parsing JSON and URL-encoded data
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
+    
     // Apollo Server middleware
-    app.use('/graphql', expressMiddleware(server, { context: authMiddleware }));
+    app.use('/graphql', expressMiddleware(server, { 
+      context: authMiddleware }));
 
     // Static assets for production
     if (process.env.NODE_ENV === 'production') {
       app.use(express.static(path.join(__dirname, '../client/dist')));
+      
       app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
       });

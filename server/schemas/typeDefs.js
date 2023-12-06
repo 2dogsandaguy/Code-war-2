@@ -6,17 +6,25 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
   }
+  type Auth {
+    token: ID!
+    user: User
+  }
+  
   type Mutation {
-    login(username: String!, password: String!): AuthPayload
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     createCardio(cardio_type: String!, distance: Int!): Cardio
-    createWeights(duration: Int!, reps: Int!, sets: Int!, weight_amount: Int!, weight_type: String!): Weight
+    createWeights(duration: Int!, reps: Int!, 
+                  sets: Int!, weight_amount: Int!, 
+                  weight_type: String!): Weight
   }
   
 
   type User {
     _id: ID
     username: String
-    password: String
+    email: String
     cardioRoutines: [Cardio]!
   }
 
@@ -38,10 +46,6 @@ const typeDefs = `
     weight_type: String
   }
   
-  type AuthPayload {
-    token: String
-    user: User
-  }
 `
 module.exports = typeDefs;
 

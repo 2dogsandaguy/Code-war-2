@@ -1,37 +1,37 @@
-const { Cardio, User, Weight, Workout } = require('../models');
+const { Cardio, User, Weight } = require('../models');
 
-const { signToken, authMiddleware } = require('../utils/auth');
+const { signToken, AuthenticationError  } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    // Add a resolver to get the current user based on the token
-    me: async (_, args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate('cardioRoutines');
-        return user;
+      me: async (parent, args, context) => {
+          if (context.user) {
+              const userData = await User.findOne({ _id: context.user._id })
+              .select('-__v -password')
+              return userData;
+          }
+          throw  AuthenticationError;
       }
-      throw new Error('You are not logged in.');
-    },
   },
   Mutation: {
-    // Add a resolver for user login
-    login: async (_, { username, password }) => {
-      const user = await User.findOne({ username });
+      addUser: async (_, args) => {
+          const user = await User.create(args);
+          const token = signToken(user);
 
-      if (!user) {
-        throw new Error('Incorrect username or password');
-      }
-
-      const correctPassword = await user.isCorrectPassword(password);
-
-      if (!correctPassword) {
-        throw new Error('Incorrect username or password');
-      }
-
-      const token = signToken(user);
-
-      return { token, user };
-    },
+          return { token, user };
+      },
+      login: async (_, { email, password }) => {
+          const user = await User.findOne( { email });
+          if (!user) {
+              throw  AuthenticationError
+          }
+          const correctPw = await user.isCorrectPassword(password);
+          if(!correctPw) {
+              throw  AuthenticationError
+          }
+          const token = signToken(user);
+          return { token, user };
+      },
 
     // Add resolvers for creating cardio and weights
     createCardio: async (_, { cardio_type, distance }, context) => {

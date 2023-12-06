@@ -5,3 +5,4 @@ const User = require('./User');
 
 
 module.exports = { Workout, Cardio, Weight, User };
+

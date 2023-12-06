@@ -1,5 +1,6 @@
 const typeDefs = `
 
+
   type Query {
     me: User
     users: [User]
@@ -11,18 +12,21 @@ const typeDefs = `
     createWeights(duration: Int!, reps: Int!, sets: Int!, weight_amount: Int!, weight_type: String!): Weight
   }
   
+
   type User {
     _id: ID
     username: String
     password: String
     cardioRoutines: [Cardio]!
   }
-  
+
+
   type Cardio {
     _id: ID
     cardio_type: String
     createdAt: String
     distance: Int
+
   }
   
   type Weight {
@@ -40,3 +44,4 @@ const typeDefs = `
   }
 `
 module.exports = typeDefs;
+

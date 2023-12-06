@@ -23,4 +23,5 @@ const cardioSchema = new Schema({
 
 const Cardio = model('Cardio', cardioSchema);
 
+
 module.exports = Cardio;

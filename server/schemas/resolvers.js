@@ -1,4 +1,5 @@
 const { Cardio, User, Weight, Workout } = require('../models');
+
 const { signToken, authMiddleware } = require('../utils/auth');
 
 const resolvers = {
@@ -62,3 +63,4 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+

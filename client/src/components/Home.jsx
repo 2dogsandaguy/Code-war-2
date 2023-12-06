@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 // import bgImage from '../../../public/images/home_page.jpg';
 import bgVideo from '../../../public/video/home_page_video.mp4';
 
@@ -39,11 +40,11 @@ function Login() {
                 </label>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px', marginTop: '20px' }}>
                     <button>Sign In</button>
-                    <button>Sign Up</button>
+                    <button><Link to="/signup" style={{ color: 'white' }}>Sign Up</Link></button>
+
                 </div>
             </div>
         </div>
     );
 }
-
 export default Login;

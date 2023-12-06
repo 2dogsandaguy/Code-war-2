@@ -1,15 +1,15 @@
-import './App.css'
-import { Outlet, useLocation } from 'react-router-dom';
-import { useState } from 'react'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home.jsx'
+import SignUp from './components/signup.jsx'; 
 
 function App() {
-
   return (
-    <>
-      <Outlet/>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   )
 }
 

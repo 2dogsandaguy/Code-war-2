@@ -7,6 +7,7 @@ const resolvers = {
       me: async (parent, args, context) => {
           if (context.user) {
               const userData = await User.findOne({ _id: context.user._id })
+              .populate('weightRoutines') 
               .select('-__v -password')
               return userData;
           }
@@ -29,6 +30,10 @@ const resolvers = {
           if(!correctPw) {
               throw  AuthenticationError
           }
+
+          // Assuming weightRoutines is an array, make sure it's not null
+          user.weightRoutines = user.weightRoutines || [];          
+
           const token = signToken(user);
           return { token, user };
       },
@@ -43,7 +48,7 @@ const resolvers = {
         await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } });
         return cardio;
       }
-      throw new Error('You must be logged in to perform this action.');
+      throw  AuthenticationError; 
     },
     createWeights: async (_, { duration, reps, sets, weight_amount, weight_type }, context) => {
       if (context.user) {
@@ -57,7 +62,7 @@ const resolvers = {
         await User.findByIdAndUpdate(context.user._id, { $push: { weightRoutines: weight._id } });
         return weight;
       }
-      throw new Error('You must be logged in to perform this action.');
+      throw  AuthenticationError; 
     },
   },
 };

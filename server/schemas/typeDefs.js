@@ -1,11 +1,10 @@
 const typeDefs = `
-
-
   type Query {
     me: User
     users: [User]
     user(username: String!): User
   }
+
   type Auth {
     token: ID!
     user: User
@@ -15,9 +14,13 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     createCardio(cardio_type: String!, distance: Int!): Cardio
-    createWeights(duration: Int!, reps: Int!, 
-                  sets: Int!, weight_amount: Int!, 
-                  weight_type: String!): Weight
+    createWeights(
+      duration: Int!, 
+      reps: Int!, 
+      sets: Int!, 
+      weight_amount: Int!, 
+      weight_type: String!
+      ): Weight
   }
   
 
@@ -26,6 +29,7 @@ const typeDefs = `
     username: String
     email: String
     cardioRoutines: [Cardio]!
+    weightRoutines: [Weight]
   }
 
 

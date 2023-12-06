@@ -1,74 +1,63 @@
 const express = require('express');
 const path = require('path');
-const { Workout } = require("./models")
+
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
+const db = require('./config/connection.js');
+const { typeDefs, resolvers } = require('./schemas/index.js');
+
 // Since we're using GraphQL, we do not need a 'routes' directory.
 // const routes = require("./routes");
-const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection.js');
+
 const { authMiddleware } = require('./utils/auth.js');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+
+  typeDefs,
+  resolvers,
+ 
 });
 
+// Middleware for parsing JSON and URL-encoded data
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Start Apollo Server before applying middleware
 const startApolloServer = async () => {
+  try {
     await server.start();
 
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
+    // Apollo Server middleware
+    app.use('/graphql', expressMiddleware(server, { context: authMiddleware }));
 
-    app.use('/graphql', expressMiddleware(server, {
-        context: authMiddleware
-    }));
-
-
-        // I'm not sure if we need this code when ApolloServer starts up?
-    //
-    // app.use(express.static(path.join(__dirname, '../client/dist')));
-    // app.get('/', (req, res) => {
-    //     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    // });
-
-    // app.get('/seed', async (req, res) => {
-    //     await Workout.create([
-    //         {
-    //             workout_name: "Pull Workout"
-    //         },
-    //         {
-    //             workout_name: "Push Workout"
-    //         }
-    //     ])
-    //     res.json({message:"Seeded!"})
-    // });
-
-
-    // app.get('/test', async(req, res) => {
-    //     let workouts = await Workout.find({})
-    //     res.json(workouts);
-    // });
-
-
+    // Static assets for production
     if (process.env.NODE_ENV === 'production') {
-        app.use(express.static(path.join(__dirname, '../client/dist')));
-        
-        app.get('*', (req, res) => {
+      app.use(express.static(path.join(__dirname, '../client/dist')));
+      app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-        });
+      });
     }
 
+    // Custom error handling middleware
+    app.use((err, req, res, next) => {
+      console.error('Error:', err.message);
+      console.error('Stack trace:', err.stack);
+      res.status(500).send('Internal Server Error');
+    });
 
     db.once('open', () => {
-        app.listen(PORT, () => {
-                console.log(`API server running on port ${PORT}!`);
-                console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-                //console.log("cool beans butt facebook facebook")
-        });
+      app.listen(PORT, () => {
+        console.log(`API server running on port ${PORT}!`);
+        console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+      });
     });
+  } catch (error) {
+    console.error('Error starting Apollo Server:', error);
+  }
 };
+
+// Call the async function to start the server
 
 startApolloServer();

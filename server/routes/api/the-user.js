@@ -4,6 +4,9 @@ const router = require("express").Router();
 // import middleware
 const { authMiddleware } = require("../../utils/auth");
 
+// import createUser function
+const { createUser, login, getSingleUser } = require("../../controllers/the-user-controllers");
+
 // put authMiddleware anywhere we need to send a token for verification of user
 // /api/user for user signup
 router.route("/").post(createUser)

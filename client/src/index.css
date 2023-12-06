@@ -34,7 +34,7 @@ input[type="text"], input[type="password"] {
   font-size: 1.2em; /* Increase font size */
   background-color: #fff; /* Add background color */
   padding: 5px; /* Add some padding */
-  border-radius: 5px; /* Optional: add border radius for rounded corners */
+  border-radius: 5px; /* border radius for rounded corners */
 }
 
 

@@ -12,7 +12,15 @@ export const GET_ME = gql`
         cardio_type
         createdAt
         distance
-      }  
+      } 
+      weightRoutines {
+        _id
+        duration
+        reps
+        sets
+        weight_amount
+        weight_type
+      } 
     }
   }
 `;

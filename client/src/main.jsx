@@ -1,15 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import Home from './components/Home.jsx';
-import SignUp from './components/SignUp.jsx'; 
-import  Error  from './components/Error.jsx';
+// main.jsx
+
+import ReactDOM from 'react-dom/client'; // Import from 'react-dom/client' instead of 'react-dom'
+import App from './App';
+import './index.css';
+import Home from './components/Home';
+import SignUp from './components/SignUp';
+import Error from './components/Error';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '*',
     element: <App />,
     errorElement: <Error />,
     children: [
@@ -18,13 +19,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/signup',
+        path: 'SignUp',
         element: <SignUp />,
       },
-    ]
-  }
-])
+    ],
+  },
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-)
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+

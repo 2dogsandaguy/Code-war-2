@@ -15,7 +15,6 @@ export const LOGIN_USER = gql`
           createdAt
           distance
         }
-        // other fields you want to retrieve
       }
     }
   }
@@ -36,7 +35,6 @@ export const ADD_USER = gql`
           createdAt
           distance
         }
-        // other fields you want to retrieve
       }
     }
   }

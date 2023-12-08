@@ -40,7 +40,7 @@ function SignUp() {
         navigate('/');
       }, 4000); // 4000ms delay
     } catch (err) {
-      // Handle signup error
+      // Handle signup error`
       console.error("Mutation error:", err);
       console.log("Error details:", err.message, err.graphQLErrors, err.networkError);
     }

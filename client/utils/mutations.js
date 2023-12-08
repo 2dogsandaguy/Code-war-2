@@ -77,19 +77,3 @@ export const CREATE_WEIGHTS = gql`
     }
   }
 `; 
-
-export const CURRENT_USER = gql`
-  query currentUser($id: ID!) {
-    currentUser(id: $id) {
-      _id
-      username
-      email
-      cardioRoutines {
-        _id
-        cardio_type
-        createdAt
-        distance
-      }
-    }
-  }
-`;

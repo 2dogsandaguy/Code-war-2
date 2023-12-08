@@ -1,5 +1,5 @@
 const { Cardio, User, Weight } = require('../models');
-
+const bcrypt = require('bcrypt');
 const { signToken, AuthenticationError  } = require('../utils/auth');
 
 const resolvers = {
@@ -11,7 +11,7 @@ const resolvers = {
               .select('-__v -password')
               return userData;
           }
-          throw  AuthenticationError;
+          /* throw  AuthenticationError; */
       }
   },
   Mutation: {
@@ -23,12 +23,16 @@ const resolvers = {
       },
       login: async (_, { email, password }) => {
           const user = await User.findOne( { email });
+          console.log({user, email, password})
+
           if (!user) {
-              throw  AuthenticationError
+            console.log("there is a error")
+              /* throw  AuthenticationError */
           }
-          const correctPw = await user.isCorrectPassword(password);
+          const correctPw = await bcrypt.compare(password, user.password);
           if(!correctPw) {
-              throw  AuthenticationError
+          
+              throw new Error  ('AuthenticationError: inccss password')
           }
 
           // Assuming weightRoutines is an array, make sure it's not null

@@ -15,7 +15,7 @@ module.exports = {
   authMiddleware: function ({ req, res  }) {
     // allows token to be sent via  req.query or headers
     let token = req.query.token || req.headers.authorization || req.body.token;
-
+console.log({query:req.query.token,headers:req.headers,body:req.body})
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
@@ -23,7 +23,7 @@ module.exports = {
     console.log('Received token:', token);
     if (!token) {
       console.log('No token found.');
-      return { user: req.user, res };
+      return { user: req.user };
 
     }
 

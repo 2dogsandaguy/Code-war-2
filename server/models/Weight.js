@@ -32,5 +32,5 @@ const weightSchema = new Schema({
  const Weight = model('Weight', weightSchema); 
 
 
-module.exports = (Weight, weightSchema);
+module.exports = Weight;
 

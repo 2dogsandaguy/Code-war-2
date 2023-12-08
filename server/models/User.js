@@ -1,8 +1,8 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, default: mongoose } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // import schema from Weight.js
-const weightSchema = require('./Weight');
+/* const Weight = require('./Weight'); */
 
 const userSchema = new Schema({
   username: {
@@ -20,7 +20,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  weightRoutines: [weightSchema]
+  weightRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Weight'}]
 },
 {
   toJSON: {

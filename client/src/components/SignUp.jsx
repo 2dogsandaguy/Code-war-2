@@ -26,7 +26,7 @@ function SignUp() {
       // The signup was successful, you can now handle the data response
       console.log("Mutation success:", data);
     } catch (err) {
-      // Handle signup error
+      // Handle signup error`
       console.error("Mutation error:", err);
       console.log("Error details:", err.message, err.graphQLErrors, err.networkError);
     }

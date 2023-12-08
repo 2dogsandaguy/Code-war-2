@@ -2,11 +2,16 @@ import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 // import bgImage from '../../../public/images/home_page.jpg';
 import bgVideo from '../../../public/video/home_page_video.mp4';
-
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../utils/mutations";
+import Auth from '../../utils/auth';
 function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+
+    const [login, { error }] = useMutation(LOGIN_USER);
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -17,13 +22,27 @@ function Login() {
     };
 
     const handleSignIn = async () => {
-        // Sign in logic here...
-        const signInSuccessful = true; // This should be the result of your sign in operation.
-    
-        if (signInSuccessful) {
+        try {
+          const { data } = await login({
+            variables: { email: username, password },
+          });
+      
+          // Store the token in local storage
+          Auth.login(data.login.token);
+      
+          setUsername('');
+          setPassword('');
+      
+          const signInSuccessful = true; // This should be the result of your sign-in operation.
+      
+          if (signInSuccessful) {
             navigate('/profile');
+          }
+        } catch (e) {
+          console.error(e);
+          setShowAlert(true);
         }
-    };
+      };
 
     return (
         <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>

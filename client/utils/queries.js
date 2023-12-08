@@ -24,6 +24,20 @@ export const GET_ME = gql`
     }
   }
 `;
+// Query to get the User data for profile page 
+export const GET_USER_DATA = gql`
+  query GetUserData {
+    user {
+      name
+      email
+    }
+    streak
+    personalRecords {
+      maxWeight
+      longestRun
+    }
+  }
+`;
 
 /*  // Query to get a list of all users
 export const GET_USERS = gql`

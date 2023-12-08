@@ -7,14 +7,14 @@ import { LOGIN_USER } from "../../utils/mutations";
 import Auth from '../../utils/auth';
 function Login() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
 
     const [login, { error }] = useMutation(LOGIN_USER);
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
     };
 
     const handlePasswordChange = (event) => {
@@ -24,13 +24,13 @@ function Login() {
     const handleSignIn = async () => {
         try {
           const { data } = await login({
-            variables: { email: username, password },
+            variables: { email: email, password },
           });
       
           // Store the token in local storage
           Auth.login(data.login.token);
       
-          setUsername('');
+          setEmail('');
           setPassword('');
       
           const signInSuccessful = true; // This should be the result of your sign-in operation.
@@ -60,8 +60,8 @@ function Login() {
             }}>
                 <h1 style={{ marginBottom: '50px', fontSize: '75px' }}>Endor Fitness</h1>
                 <label style={{ marginTop: '20px' }}>
-                    Username:
-                    <input type="text" value={username} onChange={handleUsernameChange} style={{ marginLeft: '10px' }} />
+                    Email:
+                    <input type="text" value={email} onChange={handleEmailChange} style={{ marginLeft: '10px' }} />
                 </label>
                 <label style={{ marginTop: '20px' }}>
                     Password:

@@ -3,6 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
+import ProfilePage from './components/Profile';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<Home />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </ApolloProvider>

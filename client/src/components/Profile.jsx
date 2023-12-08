@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_USER_DATA } from '../../utils/mutations'; 
+import { GET_USER_DATA } from '../../utils/queries'; 
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_USER_DATA);

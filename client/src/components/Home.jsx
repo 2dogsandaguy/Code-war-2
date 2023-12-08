@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import bgImage from '../../../public/images/home_page.jpg';
 import bgVideo from '../../../public/video/home_page_video.mp4';
 
 function Login() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,6 +14,15 @@ function Login() {
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
+    };
+
+    const handleSignIn = async () => {
+        // Sign in logic here...
+        const signInSuccessful = true; // This should be the result of your sign in operation.
+    
+        if (signInSuccessful) {
+            navigate('/profile');
+        }
     };
 
     return (
@@ -39,7 +49,7 @@ function Login() {
                     <input type="password" value={password} onChange={handlePasswordChange} style={{ marginLeft: '10px' }} />
                 </label>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px', marginTop: '20px' }}>
-                    <button>Sign In</button>
+                    <button onClick={handleSignIn}>Sign In</button>
                     <button><Link to="/signup" style={{ color: 'white' }}>Sign Up</Link></button>
 
                 </div>

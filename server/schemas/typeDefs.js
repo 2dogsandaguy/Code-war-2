@@ -30,6 +30,8 @@ const typeDefs = `
     email: String
     cardioRoutines: [Cardio]
     weightRoutines: [Weight]
+    personalRecords: PersonalRecords
+    streak: Int 
   }
 
 
@@ -49,7 +51,13 @@ const typeDefs = `
     weight_amount: Int
     weight_type: String
   }
+  type PersonalRecords {
+    maxWeight: Int
+    longestRun: Int
+  }
   
-`
+
+  
+  `
 module.exports = typeDefs;
 

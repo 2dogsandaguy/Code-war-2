@@ -11,7 +11,7 @@ const resolvers = {
               .select('-__v -password')
               return userData;
           }
-          /* throw  AuthenticationError; */
+           throw new AuthenticationError; 
       }
   },
   Mutation: {

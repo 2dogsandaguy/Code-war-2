@@ -1,10 +1,11 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA } from '../../utils/queries'; 
 
-const ProfilePage = () => {
-  const { loading, error, data } = useQuery(GET_USER_DATA);
+const Profile = () => {
+  console.log('Rendering ProfilePage...');
+  const { loading, error, data } = useQuery(GET_USER_DATA)
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching user data: {error.message}</p>;
@@ -33,4 +34,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Profile;

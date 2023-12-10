@@ -42,8 +42,10 @@ export const ADD_USER = gql`
 
 // Cardio creation mutation
 export const CREATE_CARDIO = gql`
-  mutation CreateCardio($cardio_type: String!, $distance: Int!) {
-    createCardio(cardio_type: $cardio_type, distance: $distance) {
+  mutation CreateCardio($cardio_type: String!, 
+                          $distance: Int!) {
+    createCardio(cardio_type: $cardio_type, 
+                  distance: $distance) {
       _id
       cardio_type
       createdAt
@@ -77,3 +79,4 @@ export const CREATE_WEIGHTS = gql`
     }
   }
 `; 
+

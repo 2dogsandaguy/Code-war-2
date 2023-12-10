@@ -29,6 +29,7 @@ function CreateWorkout () {
             variables: {
               cardio_type: cardioType,
               distance: parseFloat(distance),
+              duration: parseInt(duration),
             },
           });
       
@@ -69,6 +70,7 @@ function CreateWorkout () {
         setShowCardioList(true);
         setShowWeightsList(false);
         setShowInput(true);
+        setCardioType("");
     };
 
     const handleWeightsClick = () => {
@@ -77,17 +79,22 @@ function CreateWorkout () {
         setShowInput(true);
     };
 
-    const handleSaveClick = () => {
-        setShowInput(false);
-        // Check whether it's cardio or weights and call the appropriate handler
-        if (showCardioList) {
-          handleCreateCardio();
-        } else if (showWeightsList) {
-          
-          // Call the handler for weights creation
-          handleCreateWeights();
-        }
-      };
+const handleSaveClick = () => {
+  setShowInput(false);
+
+  // Check whether it's cardio or weights and call the appropriate handler
+  if (showCardioList) {
+    if (!cardioType) {
+      console.error('Cardio type is required.');
+      // You can also show an alert to the user or provide a visual indication
+      return;
+    }
+    handleCreateCardio();
+  } else if (showWeightsList) {
+    // Call the handler for weights creation
+    handleCreateWeights();
+  }
+};
 
     const handleDistanceChange = (event) => {
         const newDistance = event.target.value;
@@ -118,7 +125,7 @@ function CreateWorkout () {
                 }
                 {showCardioList && showInput &&
                     <div className="cardio-list">
-                        <select onChange={(e) => {
+                        <select onChange={(e) =>  {
                             console.log('Cardio type selected:', e.target.value);
                             setCardioType(e.target.value);
                         }}>
@@ -127,11 +134,18 @@ function CreateWorkout () {
                             <option value="stairMaster">Stair Master</option>
                             <option value="bike">Bike</option>
                         </select>
-
+                        <div>distance</div>
                         <input type="text" 
                                placeholder="Enter distance" 
                                onChange={handleDistanceChange} 
                         />
+                        <input
+                            type="text"
+                            placeholder="Enter duration (in minutes)"
+                            value={duration}
+                            onChange={(e) => setDuration(e.target.value)}
+                        />
+
                         <button onClick={handleSaveClick}>Save</button>
                     </div>
                 }
@@ -143,22 +157,41 @@ function CreateWorkout () {
                         </div>
                     }
                     {showWeightsList && showInput && (
-                <div className="weights-list">
-                    <select onChange={(e) => setWeightType(e.target.value)}>
-                        <option value="">Select workout</option>
-                        <option value="overheadPress">Overhead Press</option>
-                        <option value="lunge">Lunge</option>
-                        <option value="curls">Curls</option>
-                        <option value="squats">Squats</option>
-                        <option value="hammerCurls">Hammer Curls</option>
-                    </select>
-                    <input
-                        type="text"
-                        placeholder="Enter reps"
-                        onChange={handleRepsChange}
-                            />
-                            <button onClick={handleSaveClick}>Save</button>
-                        </div>
+            <div className="weights-list">
+                <select onChange={(e) => setWeightType(e.target.value)}>
+                    <option value="">Select workout</option>
+                    <option value="overheadPress">Overhead Press</option>
+                    <option value="lunge">Lunge</option>
+                    <option value="curls">Curls</option>
+                    <option value="squats">Squats</option>
+                    <option value="hammerCurls">Hammer Curls</option>
+                </select>
+            {/* Add input fields for each parameter in createWeights mutation */}
+                <input
+                    type="text"
+                    placeholder="Enter duration"
+                    value={duration}
+                    onChange={(e) => setDuration(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter reps"
+                    onChange={handleRepsChange}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter sets"
+                    onChange={(e) => setSets(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter weight amount"
+                    onChange={(e) => setWeightAmount(e.target.value)}
+                />
+                
+
+                <button onClick={handleSaveClick}>Save</button>
+            </div>
                     )}
                 </div>
                 </div>

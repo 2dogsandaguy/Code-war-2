@@ -1,5 +1,5 @@
 import './CreateWorkout.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { CREATE_CARDIO } from '../../utils/mutations';  
@@ -78,23 +78,44 @@ function CreateWorkout () {
         setShowCardioList(false);
         setShowInput(true);
     };
+    
+    const navigate = useNavigate();
 
-const handleSaveClick = () => {
-  setShowInput(false);
-
-  // Check whether it's cardio or weights and call the appropriate handler
-  if (showCardioList) {
-    if (!cardioType) {
-      console.error('Cardio type is required.');
-      // You can also show an alert to the user or provide a visual indication
-      return;
-    }
-    handleCreateCardio();
-  } else if (showWeightsList) {
-    // Call the handler for weights creation
-    handleCreateWeights();
-  }
-};
+    const handleSaveClick = async () => {
+        setShowInput(false);
+      
+        let workoutData = null;
+      
+        if (showCardioList) {
+          if (!cardioType) {
+            console.error('Cardio type is required.');
+            return;
+          }
+          await handleCreateCardio();
+          workoutData = {
+            cardioType,
+            distance,
+            duration,
+          };
+        } else if (showWeightsList) {
+          await handleCreateWeights();
+          workoutData = {
+            weightType,
+            reps,
+            sets,
+            weightAmount,
+            duration, // if we need duration is common for both cardio and weights
+          };
+        }
+      
+        // Navigate to the profile page with the workout data
+        navigate('/profile', {
+          state: {
+            workoutData,
+          },
+        });
+      };
+      
 
     const handleDistanceChange = (event) => {
         const newDistance = event.target.value;

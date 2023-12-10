@@ -21,7 +21,12 @@ export const GET_ME = gql`
         weight_amount
         weight_type
       } 
-    }
+      personalRecords {
+        maxWeight
+        longestRun
+      }
+      streak 
+    }  
   }
 `;
 // Query to get the User data for the profile page
@@ -31,7 +36,7 @@ export const GET_USER_DATA = gql`
       _id
       username
       email
-
+    
       personalRecords {
         maxWeight
         longestRun

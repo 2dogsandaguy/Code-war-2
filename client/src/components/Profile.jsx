@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
+import Auth from '../../utils/auth'; // Import the AuthService
 
 const Profile = () => {
   console.log('Rendering ProfilePage...');
@@ -20,7 +21,11 @@ const Profile = () => {
   console.log(streak);
   console.log(personalRecords/* .maxWeight */);
   console.log(personalRecords/* .longestRun */);
-
+  
+  const handleLogout = () => {
+    // Call the logout method from AuthService
+    Auth.logout();
+  };
   return (
 
 <div style={{ margin: '20px' }}>
@@ -32,6 +37,8 @@ const Profile = () => {
     <li>Max Weight Lifted: {personalRecords}maxWeight</li>
     <li>Longest Run: {personalRecords}longestRun</li>
   </ul>
+  {/* Log out button */}
+  <button onClick={handleLogout}>Log Out</button>
   {/* Nav buttons */}
   <Link to="/create-workout" style={{ marginRight: '20px' }}>Create Workout Routine</Link>
   <Link to="/view-history">View Workout History</Link>

@@ -7,11 +7,11 @@ const resolvers = {
       me: async (parent, args, context) => {
           if (context.user) {
               const userData = await User.findOne({ _id: context.user._id })
-              .populate('weightRoutines') 
+              .populate('weightRoutines','cardioRoutines') 
               .select('-__v -password')
               return userData;
           }
-           throw new AuthenticationError; 
+          throw new AuthenticationError; 
       }
   },
   Mutation: {
@@ -36,7 +36,8 @@ const resolvers = {
           }
 
           // Assuming weightRoutines is an array, make sure it's not null
-          user.weightRoutines = user.weightRoutines || [];          
+          user.weightRoutines = user.weightRoutines || [];  
+          user.caridoRoutines = user.caridoRoutines || [];         
 
           const token = signToken(user);
           return { token, user };

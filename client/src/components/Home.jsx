@@ -1,7 +1,7 @@
 import { useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
 // import bgImage from '../../../public/images/home_page.jpg';
-import bgVideo from '../../../public/video/home_page_video.mp4';
+import bgVideo from '../../../public/video/home_page_video.mp4' 
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from '../../utils/auth';

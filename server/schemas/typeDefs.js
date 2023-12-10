@@ -13,14 +13,15 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    createCardio(cardio_type: String!, distance: Int!): Cardio
-    createWeights(
-      duration: Int!, 
-      reps: Int!, 
-      sets: Int!, 
-      weight_amount: Int!, 
-      weight_type: String!
-      ): Weight
+    createCardio(cardio_type: String!, 
+                distance: Int!, 
+                duration: Int!): Cardio
+    createWeights(duration: Int!, 
+                  reps: Int!, 
+                  sets: Int!, 
+                  weight_amount: Int!, 
+                  weight_type: String!
+                  ): Weight
   }
   
 

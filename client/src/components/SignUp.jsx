@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import './SignUp.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function SignUp() {
@@ -50,6 +50,9 @@ function SignUp() {
   return (
     <>
     {message && <h2 style={{ color: 'green', textAlign: 'center' }}>{message}</h2>}
+    <header className="header">
+      <Link to="/">Back to Login</Link>
+    </header>
     <div className="container">
       <form onSubmit={handleSubmit} className="mt-5">
         <div className="mb-3">

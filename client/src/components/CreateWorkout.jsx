@@ -70,14 +70,14 @@ function CreateWorkout () {
         setShowCardioList(true);
         setShowWeightsList(false);
         setShowInput(true);
-        setCardioType("run");
+        setCardioType("Running");
     };
 
     const handleWeightsClick = () => {
         setShowWeightsList(true);
         setShowCardioList(false);
         setShowInput(true);
-        setWeightType("overheadPress");
+        setWeightType("Overhead Press");
     };
     
     const navigate = useNavigate();
@@ -151,10 +151,10 @@ function CreateWorkout () {
                             console.log('Cardio type selected:', e.target.value);
                             setCardioType(e.target.value);
                         }}>
-                            <option value="run">Run</option>
-                            <option value="walk">Walk</option>
-                            <option value="stairMaster">Stair Master</option>
-                            <option value="bike">Bike</option>
+                            <option value="Running">Run</option>
+                            <option value="Walking">Walk</option>
+                            <option value="Stair Master">Stair Master</option>
+                            <option value="Biking">Bike</option>
                         </select>
                         <div>distance</div>
                         <input type="text" 
@@ -181,11 +181,11 @@ function CreateWorkout () {
                     {showWeightsList && showInput && (
             <div className="weights-list">
                 <select onChange={(e) => setWeightType(e.target.value)}>
-                    <option value="overheadPress">Overhead Press</option>
-                    <option value="lunge">Lunge</option>
-                    <option value="curls">Curls</option>
-                    <option value="squats">Squats</option>
-                    <option value="hammerCurls">Hammer Curls</option>
+                    <option value="Overhead Press">Overhead Press</option>
+                    <option value="Lunges">Lunge</option>
+                    <option value="Curls">Curls</option>
+                    <option value="Squats">Squats</option>
+                    <option value="Hammer Curls">Hammer Curls</option>
                 </select>
             {/* Add input fields for each parameter in createWeights mutation */}
                 <input

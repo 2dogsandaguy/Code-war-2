@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "test": "node test/workout-history.js"
   },
   "dependencies": {
     "@apollo/server": "^4.7.1",

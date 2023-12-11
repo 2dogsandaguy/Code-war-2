@@ -79,6 +79,25 @@ export const GET_USER_BY_USERNAME = gql`
   }
 `;  */
 
-
+export const VIEW_HISTORY = gql`
+  query ViewHistory {
+    me {
+      cardioRoutines {
+        _id
+        cardio_type
+        createdAt
+        distance
+      }
+      weightRoutines {
+        _id
+        duration
+        reps
+        sets
+        weight_amount
+        weight_type
+      }
+    }
+  }
+`;
 
 

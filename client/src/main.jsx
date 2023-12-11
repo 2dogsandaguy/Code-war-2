@@ -9,6 +9,7 @@ import Error from './components/Error';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Profile from './components/Profile';
 import CreateWorkout from './components/CreateWorkout';
+import ViewHistory from './components/ViewHistory';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: 'CreateWorkout',
         element: <CreateWorkout />
+      },
+      {
+        path: 'ViewHistory',
+        element: <ViewHistory />
       },
     ],
   },

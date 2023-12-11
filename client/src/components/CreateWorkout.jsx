@@ -70,13 +70,14 @@ function CreateWorkout () {
         setShowCardioList(true);
         setShowWeightsList(false);
         setShowInput(true);
-        setCardioType("");
+        setCardioType("run");
     };
 
     const handleWeightsClick = () => {
         setShowWeightsList(true);
         setShowCardioList(false);
         setShowInput(true);
+        setWeightType("overheadPress");
     };
     
     const navigate = useNavigate();
@@ -180,7 +181,6 @@ function CreateWorkout () {
                     {showWeightsList && showInput && (
             <div className="weights-list">
                 <select onChange={(e) => setWeightType(e.target.value)}>
-                    <option value="">Select workout</option>
                     <option value="overheadPress">Overhead Press</option>
                     <option value="lunge">Lunge</option>
                     <option value="curls">Curls</option>

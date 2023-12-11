@@ -1,7 +1,8 @@
 .profile {
-  margin: 20px;
   color: #001f3f; /* Navy blue text */
   font-family: Arial, sans-serif; /* Use a legible font */
+  padding-top: 20px; /* Push content down */
+  padding-left: 20px; /* Push content to the right */
 }
 
 .heading {
@@ -11,4 +12,9 @@
 
 .text {
   font-size: 22px; /* Standard font size for text */
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
 }

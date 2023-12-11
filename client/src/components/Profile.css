@@ -1,0 +1,14 @@
+.profile {
+  margin: 20px;
+  color: #001f3f; /* Navy blue text */
+  font-family: Arial, sans-serif; /* Use a legible font */
+}
+
+.heading {
+  font-size: 40px; /* Larger font size for headings */
+  font-weight: bold; /* Bold font for headings */
+}
+
+.text {
+  font-size: 22px; /* Standard font size for text */
+}

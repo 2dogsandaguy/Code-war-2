@@ -6,6 +6,9 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from '../../utils/auth';
 import YourComponent from './YourComponent';
+import "./Home.css";
+
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -68,14 +71,14 @@ function Login() {
         zIndex: '1',
         position: 'relative'
       }}>
-        <h1 style={{ marginBottom: '50px', fontSize: '75px' }}>Endor Fitness</h1>
-        <label style={{ marginTop: '20px' }}>
+        <h1 className="lightblue-text" style={{ marginBottom: '50px', fontSize: '75px' }}>Endor Fitness</h1>
+        <label className="lightblue-text large-bold-text label-email" style={{ marginTop: '20px' }}>
           Email:
-          <input type="text" value={email} onChange={handleEmailChange} style={{ marginLeft: '10px' }} />
+          <input type="text" value={email} onChange={handleEmailChange} className="large-input" style={{ marginLeft: '10px' }} placeholder="Enter email" />
         </label>
-        <label style={{ marginTop: '20px' }}>
+        <label className="lightblue-text large-bold-text" style={{ marginTop: '20px' }}>
           Password:
-          <input type="password" value={password} onChange={handlePasswordChange} style={{ marginLeft: '10px' }} />
+          <input type="password" value={password} onChange={handlePasswordChange} className="large-input" style={{ marginLeft: '10px' }} placeholder="Enter password" />
         </label>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px', marginTop: '20px' }}>
           <button onClick={handleSignIn}>Sign In</button>

@@ -1,0 +1,23 @@
+.lightblue-text {
+  color: rgb(235, 12, 12);
+}
+
+.large-bold-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(64, 241, 9);
+}
+
+.large-input {
+  height: 2rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.label-email {
+  margin-left: 48px;
+}
+
+button {
+  width: 150px;
+  white-space: nowrap;
+}

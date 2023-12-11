@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { VIEW_HISTORY } from '../../utils/queries'; 
 import "./ViewHistory.css";
 
-const viewHistory = () => {
+const ViewHistory = () => {
   const { loading, error, data } = useQuery(VIEW_HISTORY);
 
   console.log('history', data);
@@ -16,6 +16,7 @@ const viewHistory = () => {
   return (
     <div className="history-container">
       <h1>Workout History</h1>
+      <h2>Cardio Routines</h2>
       {cardio && cardio.map(item => (
         <div key={item._id}>
           <p>Cardio Type: {item.cardio_type}</p>
@@ -23,6 +24,7 @@ const viewHistory = () => {
           <p>Distance: {item.distance}</p>
         </div>
       ))}
+      <h2>Weight Routines</h2>
       {weights && weights.map(item => (
         <div key={item._id}>
           <p>Weight Type: {item.weight_type}</p>
@@ -36,4 +38,4 @@ const viewHistory = () => {
   );
 };
 
-export default viewHistory;
+export default ViewHistory;

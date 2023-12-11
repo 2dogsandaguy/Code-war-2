@@ -39,9 +39,9 @@ const Profile = () => {
       {/* <p className="text">Your Streak: {streak} days</p> */}
       <p className="text">Personal Records:</p>
       <ul>
-        <li>Max Weight Lifted: {workoutData.weightAmount} Max Weight</li>
+        <li>Max Weight Lifted: {workoutData?.weightAmount} Max Weight</li>
         <br />
-        <li>Longest Run: {workoutData.distance} Miles</li>
+        <li>Longest Run: {workoutData?.distance} Miles</li>
       </ul>
 
       {workoutData && (

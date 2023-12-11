@@ -21,7 +21,7 @@ const userSchema = new Schema({
     required: true,
   },
   weightRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Weight'}],
-  caridoRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Carido'}]
+  cardioRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Cardio'}]
   
 },
 {

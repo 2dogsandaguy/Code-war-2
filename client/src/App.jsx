@@ -5,6 +5,7 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 import CreateWorkout from './components/CreateWorkout';
+import ViewHistory from './components/ViewHistory';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -38,6 +39,7 @@ function App() {
           <Route path="*" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-workout" element={<CreateWorkout />} />
+          <Route path="/view-history" element={<ViewHistory />} />
         </Routes>
       </Router>
     </ApolloProvider>

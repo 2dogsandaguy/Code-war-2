@@ -1,4 +1,4 @@
-import './CreateWorkout.css';
+import './createworkout.css';
 import { Link, useNavigate} from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';

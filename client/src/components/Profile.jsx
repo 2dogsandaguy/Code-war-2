@@ -3,21 +3,22 @@ import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
 import Auth from '../../utils/auth'; // Import the AuthService
+import './Profile.css';
 
 const Profile = () => {
-  
+
   const location = useLocation();
   const { workoutData } = location.state || {}; // Access workout data from state
 
   console.log('Rendering ProfilePage...');
   const { loading, error, data } = useQuery(GET_ME)
 
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching user data: {error.message}</p>;
 
-  console.log('graphql data 2',data)
-  
+  console.log('graphql data 2', data)
+
   const { username, email, streak, personalRecords } = data.me;
 
   console.log(username);
@@ -25,30 +26,28 @@ const Profile = () => {
   console.log(streak);
   console.log(personalRecords/* .maxWeight */);
   console.log(personalRecords/* .longestRun */);
-  
+
   const handleLogout = () => {
     // Call the logout method from AuthService
     Auth.logout();
   };
   return (
 
-<div style={{ margin: '20px' }}>
-  <h1>Welcome {username}!</h1>
-  <p>Email: {email}</p>
-   <p>Your Streak: {streak} days</p>
-  <p>Personal Records:</p>
-  <ul>
-    <li>Max Weight Lifted: {personalRecords}maxWeight</li>
-    <li>Longest Run: {personalRecords}longestRun</li>
-  </ul>
-  {/* Log out button */}
-  <button onClick={handleLogout}>Log Out</button>
-  {/* Nav buttons */}
-  <Link to="/create-workout" style={{ marginRight: '20px' }}>Create Workout Routine</Link>
-  <Link to="/view-history">View Workout History</Link>
-  {workoutData && (
+    <div className="profile">
+      <h1 className="heading">Welcome {username}!</h1>
+      <p className="text">Email: {email}</p>
+      {/* <p className="text">Your Streak: {streak} days</p> */}
+      <p className="text">Personal Records:</p>
+      <ul>
+        <li>Max Weight Lifted: {workoutData.weightAmount} Max Weight</li>
+        <br />
+        <li>Longest Run: {workoutData.distance} Miles</li>
+      </ul>
+
+      {workoutData && (
         <div>
-          <p>Recently Added Workout:</p>
+          <br/>
+          <p className="text">Recently Added Workout:</p>
           {workoutData.cardioType && (
             <div>
               <p>Cardio Type: {workoutData.cardioType}</p>
@@ -67,6 +66,11 @@ const Profile = () => {
           )}
         </div>
       )}
+      {/* Log out button */}
+      <button onClick={handleLogout}>Log Out</button>
+      {/* Nav buttons */}
+      <Link to="/create-workout" style={{ marginRight: '20px' }}>Create Workout Routine</Link>
+      <Link to="/view-history">View Workout History</Link>
     </div>
   );
 }

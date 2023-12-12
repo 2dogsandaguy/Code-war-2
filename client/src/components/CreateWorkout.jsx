@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { CREATE_CARDIO } from '../../utils/mutations';  
 import { CREATE_WEIGHTS } from '../../utils/mutations';
-import { VIEW_HISTORY } from '../../utils/queries';
+import { VIEW_HISTORY,  GET_ME } from '../../utils/queries';
 
 function CreateWorkout () {
     const [showCardioList, setShowCardioList] = useState(false);
@@ -23,14 +23,14 @@ function CreateWorkout () {
      // Use the useMutation hook here
     const [createCardio] = useMutation(CREATE_CARDIO, {
       refetchQueries:[
-        VIEW_HISTORY,
-        'me'
+        { query: VIEW_HISTORY },
+        { query: GET_ME },
       ]
     });
     const [createWeights] = useMutation(CREATE_WEIGHTS, {
       refetchQueries:[
-        VIEW_HISTORY,
-        'me'
+        { query: VIEW_HISTORY },
+        { query: GET_ME },
       ]
     });
 

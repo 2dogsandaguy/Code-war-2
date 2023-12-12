@@ -18,8 +18,6 @@ function SignUp() {
     event.preventDefault();
 
     try {
-      console.log("Submitting mutation");
-      console.log("Variables:", { username, email, password });
       const { data } = await addUser({
         variables: {
           username,
@@ -27,10 +25,6 @@ function SignUp() {
           password,
         },
       });
-
-      // The signup was successful, you can now handle the data response
-      console.log("Mutation success:", data);
-
 
       // Set the success message
       setMessage('Signup successful! Redirecting to home page...');
@@ -45,7 +39,6 @@ function SignUp() {
       console.log("Error details:", err.message, err.graphQLErrors, err.networkError);
     }
   };
-  console.log("GraphQL Mutation:", ADD_USER.loc.source.body);
 
   return (
     <>

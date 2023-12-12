@@ -1,11 +1,23 @@
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { VIEW_HISTORY } from '../../utils/queries'; 
+import { useQuery, useMutation } from '@apollo/client';
+import { VIEW_HISTORY } from '../../utils/queries'; // Assuming you have a DELETE_WEIGHT mutation
+import { DELETE_WEIGHT, DELETE_CARDIO } from '../../utils/mutations';
 import "./ViewHistory.css";
 
 const ViewHistory = () => {
   const { loading, error, data } = useQuery(VIEW_HISTORY);
-
+  const [deleteWeightRoutine] = useMutation(DELETE_WEIGHT, {
+    refetchQueries:[
+      VIEW_HISTORY,
+      'me'
+    ]
+  });
+  const [deleteCardioRoutine] = useMutation(DELETE_CARDIO, {
+    refetchQueries:[
+      VIEW_HISTORY,
+      'me'
+    ]
+  });
   console.log('history', data);
 
   if (loading) return <p>Loading...</p>;
@@ -16,6 +28,31 @@ const ViewHistory = () => {
 
   console.log(cardio);
   console.log(weights);
+  const handleDeleteCardioRoutine = async (id) => {
+    try {
+      const { data } = await deleteCardioRoutine({
+        variables: {
+          cardioRoutineId: id,
+        },
+      });
+      console.log('Cardio routine deleted:', data);
+    } catch (deleteError) {
+      console.error('Error deleting cardio routine:', deleteError);
+    }
+  };
+
+  const handleDeleteWeightRoutine = async (id) => {
+    try {
+      const { data } = await deleteWeightRoutine({
+        variables: {
+          weightRoutineId: id,
+        },
+      });
+      console.log('Weight routine deleted:', data);
+    } catch (deleteError) {
+      console.error('Error deleting weight routine:', deleteError);
+    }
+  };
 
   return (
     <>
@@ -30,6 +67,7 @@ const ViewHistory = () => {
             <p>Cardio Type: {item.cardio_type}</p>
             <p>Created At: {item.createdAt}</p>
             <p>Distance: {item.distance}</p>
+            <button onClick={() => handleDeleteCardioRoutine(item._id)}>Delete</button>
           </div>
         ))}
         <h2>Weight Routines</h2>
@@ -40,9 +78,10 @@ const ViewHistory = () => {
             <p>Sets: {item.sets}</p>
             <p>Weight Amount: {item.weight_amount}</p>
             <p>Duration: {item.duration}</p>
+            <button onClick={() => handleDeleteWeightRoutine(item._id)}>Delete</button>
           </div>
         ))}
-    </div>
+      </div>
     </>
   );
 };

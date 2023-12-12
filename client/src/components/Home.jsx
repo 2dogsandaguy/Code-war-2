@@ -13,9 +13,9 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  
 
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -43,12 +43,11 @@ function Login() {
       const signInSuccessful = true; // This should be the result of your sign-in operation.
 
       if (signInSuccessful) {
-        console.log('Navigating to /profile...');
+        
         navigate('/profile');
       }
     } catch (e) {
       console.error('Sign-in error:', e);
-      setShowAlert(true);
     }
   };
   // Check if the user is logged in

@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { CREATE_CARDIO } from '../../utils/mutations';  
 import { CREATE_WEIGHTS } from '../../utils/mutations';
+import { VIEW_HISTORY } from '../../utils/queries';
 
 function CreateWorkout () {
     const [showCardioList, setShowCardioList] = useState(false);
@@ -14,14 +15,24 @@ function CreateWorkout () {
     const [cardioType, setCardioType] = useState('');
     const [duration, setDuration] = useState('');
     
-    const [weight, setWeight] = useState(''); // Add weight state
+   /*  const [weight, setWeight] = useState(''); // Add weight state */
     const [reps, setReps] = useState('');
     const [sets, setSets] = useState('');
     const [weightAmount, setWeightAmount] = useState('');
     const [weightType, setWeightType] = useState('');
      // Use the useMutation hook here
-    const [createCardio] = useMutation(CREATE_CARDIO);
-    const [createWeights] = useMutation(CREATE_WEIGHTS);
+    const [createCardio] = useMutation(CREATE_CARDIO, {
+      refetchQueries:[
+        VIEW_HISTORY,
+        'me'
+      ]
+    });
+    const [createWeights] = useMutation(CREATE_WEIGHTS, {
+      refetchQueries:[
+        VIEW_HISTORY,
+        'me'
+      ]
+    });
 
     const handleCreateCardio = async () => {
         try {
@@ -124,11 +135,11 @@ function CreateWorkout () {
         setDistance(parseFloat(newDistance)); // Convert the distance to a float
       };
       
-      const handleWeightChange = (event) => {
+/*       const handleWeightChange = (event) => {
         const newWeight = event.target.value;
         console.log('Weight changed:', newWeight);
         setWeight(newWeight);
-      };
+      }; */
       
 
 

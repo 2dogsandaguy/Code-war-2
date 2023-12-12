@@ -54,6 +54,14 @@ export const CREATE_CARDIO = gql`
   }
 `;
 
+export const DELETE_CARDIO = gql`
+  mutation DeleteCardio($cardioRoutineId: ID!) {
+    deleteCardioRoutine(cardioRoutineId: $cardioRoutineId) {
+      _id
+    }
+  }
+`;
+
 // Weights creation mutation
 export const CREATE_WEIGHTS = gql`
   mutation CreateWeights(
@@ -80,3 +88,10 @@ export const CREATE_WEIGHTS = gql`
   }
 `; 
 
+export const DELETE_WEIGHT = gql`
+mutation DeleteWeight ($weightRoutineId: ID!){
+  deleteWeightRoutine(weightRoutineId: $weightRoutineId){
+    _id
+  }
+}
+`;

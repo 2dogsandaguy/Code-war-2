@@ -16,12 +16,14 @@ const typeDefs = `
     createCardio(cardio_type: String!, 
                 distance: Int!, 
                 duration: Int!): Cardio
+                deleteCardioRoutine(cardioRoutineId: ID!): Cardio
     createWeights(duration: Int!, 
                   reps: Int!, 
                   sets: Int!, 
                   weight_amount: Int!, 
                   weight_type: String!
                   ): Weight
+                  deleteWeightRoutine(weightRoutineId: ID!): Weight 
   }
   
 
@@ -41,7 +43,7 @@ const typeDefs = `
     cardio_type: String
     createdAt: String
     distance: Int
-
+    duration: Int
   }
   
   type Weight {

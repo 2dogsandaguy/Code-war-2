@@ -10,7 +10,7 @@ const Profile = () => {
   const location = useLocation();
   const { workoutData } = location.state || {}; // Access workout data from state
 
-  console.log('Rendering ProfilePage...');
+
   const { loading, error, data } = useQuery(GET_ME)
 
 

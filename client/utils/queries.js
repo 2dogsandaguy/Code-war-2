@@ -55,10 +55,12 @@ export const VIEW_HISTORY = gql`
         cardio_type
         createdAt
         distance
+        duration
       }
       weightRoutines {
         _id
         duration
+        createdAt
         reps
         sets
         weight_amount

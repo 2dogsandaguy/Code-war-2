@@ -1,12 +1,12 @@
 // ViewHistory.jsx
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { VIEW_HISTORY } from '../../utils/queries'; // Assuming you have a DELETE_WEIGHT mutation
 import { DELETE_WEIGHT, DELETE_CARDIO } from '../../utils/mutations';
 
-import bgImage from '../../../public/images/viewHistorytrail.jpg';
+/* import bgImage from '../../../public/images/viewHistorytrail.jpg'; */
 
 import "./ViewHistory.css";
 
@@ -74,20 +74,25 @@ const ViewHistory = () => {
         <div className="history-columns">
           <div className="history-column">
             <h2>Cardio Routines</h2>
-            {cardio && cardio.map(item => (
+            {cardio && cardio.map(item => {
+              console.log(item);
+              return (
               <div key={item._id} className="history-item">
                 <p>Cardio Type: {item.cardio_type}</p>
                 <p>Created At: {item.createdAt}</p>
                 <p>Distance: {item.distance}</p>
+                <p>Duration: {item.duration}</p>
                 <button onClick={() => handleDeleteCardioRoutine(item._id)}>Delete</button>
               </div>
-            ))}
+              );
+              })}
           </div>
           <div className="history-column">
             <h2>Weight Routines</h2>
             {weights && weights.map(item => (
               <div key={item._id} className="history-item">
                 <p>Weight Type: {item.weight_type}</p>
+                <p>Created At: {item.createdAt}</p>
                 <p>Reps: {item.reps}</p>
                 <p>Sets: {item.sets}</p>
                 <p>Weight Amount: {item.weight_amount}</p>

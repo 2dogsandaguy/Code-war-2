@@ -80,6 +80,7 @@ export const CREATE_WEIGHTS = gql`
     ) {
       _id
       duration
+      createdAt
       reps
       sets
       weight_amount

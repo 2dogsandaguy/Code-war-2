@@ -49,6 +49,7 @@ const typeDefs = `
   type Weight {
     _id: ID
     duration: Int
+    createdAt: String
     reps: Int
     sets: Int
     weight_amount: Int

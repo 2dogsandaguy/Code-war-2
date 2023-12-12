@@ -34,7 +34,6 @@ const ViewHistory = () => {
   const cardio = data.me.cardioRoutines;
   const weights = data.me.weightRoutines;
 
-<
   console.log(cardio);
   console.log(weights);
   const handleDeleteCardioRoutine = async (id) => {

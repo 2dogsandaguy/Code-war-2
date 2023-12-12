@@ -49,12 +49,14 @@ const resolvers = {
     },
 
     // Add resolvers for creating cardio and weights
-    createCardio: async (_, { cardio_type, distance, duration }, context) => {
+    createCardio: async (_, { cardio_type, distance, durationType, duration, distanceType }, context) => {
       if (context.user) {
         const cardio = await Cardio.create({
           cardio_type,
+          distanceType,
           distance,
           duration,
+          durationType,
         });
         await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } });
         return cardio;

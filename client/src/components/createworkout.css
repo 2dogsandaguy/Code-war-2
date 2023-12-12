@@ -12,7 +12,12 @@ body {
     padding: 10px;
     font-size: 24px;
 }
-
+span {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: rgb(34, 100, 242);
+    font-weight: bolder;
+}
 .create-container {
     background-image: url(../../../public/images/strength-training-vs-cardio.jpg) ;
     background-size: cover;

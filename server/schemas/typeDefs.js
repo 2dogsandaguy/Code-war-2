@@ -13,8 +13,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    createCardio(cardio_type: String!, 
-                distance: Int!, 
+    createCardio(cardio_type: String!, distanceType: String!,
+                distance: Int!, durationType: String!,
                 duration: Int!): Cardio
                 deleteCardioRoutine(cardioRoutineId: ID!): Cardio
     createWeights(duration: Int!, 
@@ -41,8 +41,10 @@ const typeDefs = `
   type Cardio {
     _id: ID
     cardio_type: String
+    distanceType: String
     createdAt: String
     distance: Int
+    durationType: String
     duration: Int
   }
   

@@ -79,9 +79,12 @@ const ViewHistory = () => {
               return (
               <div key={item._id} className="history-item">
                 <p>Cardio Type: {item.cardio_type}</p>
+                <p>DistanceType: {item.distanceType}</p>
                 <p>Created At: {item.createdAt}</p>
-                <p>Distance: {item.distance}</p>
-                <p>Duration: {item.duration}</p>
+                <p>Distance: {item.distance} Miles</p>
+                <p>Duration: {item.duration} Minutes</p>
+                <p>DurationType: {item.durationType} Minutes</p>
+
                 <button onClick={() => handleDeleteCardioRoutine(item._id)}>Delete</button>
               </div>
               );

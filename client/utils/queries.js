@@ -47,38 +47,6 @@ export const GET_USER_DATA = gql`
 `;
 
 
-/*  // Query to get a list of all users
-export const GET_USERS = gql`
-  query Users {
-    users {
-      _id
-      username
-      cardioRoutines {
-        _id
-        cardio_type
-        createdAt
-        distance
-      }
-    }
-  }
-`;
-
-// Query to get a specific user by username
-export const GET_USER_BY_USERNAME = gql`
-  query UserByUsername($username: String!) {
-    user(username: $username) {
-      _id
-      username
-      cardioRoutines {
-        _id
-        cardio_type
-        createdAt
-        distance
-      }
-    }
-  }
-`;  */
-
 export const VIEW_HISTORY = gql`
   query ViewHistory {
     me {

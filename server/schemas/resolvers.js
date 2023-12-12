@@ -61,6 +61,19 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    deleteCardioRoutine: async (_, { cardioRoutineId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not authenticated');
+      }
+    
+      try {
+        const deletedCardioRoutine = await Cardio.findByIdAndDelete(cardioRoutineId);
+        return deletedCardioRoutine;
+      } catch (error) {
+        console.error('Error deleting cardio routine:', error);
+        throw new Error('Error deleting cardio routine');
+      }
+    },
     createWeights: async (_, { duration, reps, sets, weight_amount, weight_type }, context) => {
       if (context.user) {
         const weight = await Weight.create({
@@ -74,6 +87,19 @@ const resolvers = {
         return weight;
       }
       throw AuthenticationError;
+    },
+    deleteWeightRoutine: async (_, { weightRoutineId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not authenticated');
+      }
+    
+      try {
+        const deletedWeightRoutine = await Weight.findByIdAndRemove(weightRoutineId);
+        return deletedWeightRoutine;
+      } catch (error) {
+        console.error('Error deleting weight routine:', error);
+        throw new Error('Error deleting weight routine');
+      }
     },
   },
 };

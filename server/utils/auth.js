@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { GraphQLError } = require('graphql');
+require('dotenv').config();
 
 // set token secret and expiration date
-const secret = 'mysecretsshhhhh';
+const secret = process.env.JWT_SECRET || 'defaultSecret';
 const expiration = '2h';
 
 module.exports = {
@@ -15,7 +16,10 @@ module.exports = {
   authMiddleware: function ({ req, res  }) {
     // allows token to be sent via  req.query or headers
     let token = req.query.token || req.headers.authorization || req.body.token;
+    
 /* console.log({query:req.query.token,headers:req.headers,body:req.body}) */
+
+
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();

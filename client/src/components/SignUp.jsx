@@ -11,7 +11,7 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const [addUser, { data }] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {

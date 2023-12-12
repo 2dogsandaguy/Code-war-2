@@ -2,6 +2,7 @@ import './createworkout.css';
 import { Link, useNavigate} from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import WorkoutImg from '../../../public/images/strength-training-vs-cardio.png';
 import { CREATE_CARDIO } from '../../utils/mutations';  
 import { CREATE_WEIGHTS } from '../../utils/mutations';
 import { VIEW_HISTORY,  GET_ME } from '../../utils/queries';
@@ -145,10 +146,22 @@ function CreateWorkout () {
 
     return (
         <>
-            <header className="header">
+        
+          <header className="header">
                 <Link to="/profile">Back to Profile</Link>
             </header>
-            <div className="container">
+            <div className="create-container" style={{
+  backgroundImage: `url(${WorkoutImg})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  position: 'relative'
+}}>
+
         <div className="box-container">
             <div>
                 {!showInput &&
@@ -229,6 +242,7 @@ function CreateWorkout () {
                 </div>
             </div>
         </>
+        
     );
 }
 

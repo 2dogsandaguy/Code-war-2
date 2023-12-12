@@ -1,3 +1,71 @@
-.history-container {
-    color: black;
-}
+/* ViewHistory.scss */
+
+.header {
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  .header a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .history-container {
+    background-image: url('../../../public/images/viewHistorytrail.jpg'); /* Replace with the actual path to your image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .history-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .history-container h1,
+  .history-container h2,
+  .history-item p {
+    position: relative;
+    z-index: 2;
+    color: rgb(0, 0, 0);
+  }
+  
+  .history-container h1 {
+    color: rgb(212, 64, 11);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center; /* Center the text */
+  }
+  
+  h2 {
+    color: rgb(64, 241, 9);
+    font-size: 1.6rem;
+    margin-top: 20px;
+  }
+  
+  .history-columns {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .history-column {
+    width: 45%;
+  }
+  
+  .history-item {
+    margin-bottom: 20px;
+  }
+  
+  .history-item p {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  

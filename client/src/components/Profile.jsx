@@ -21,12 +21,6 @@ const Profile = () => {
 
   const { username, email, streak, personalRecords } = data.me;
 
-  console.log(username);
-  console.log(email);
-  console.log(streak);
-  console.log(personalRecords/* .maxWeight */);
-  console.log(personalRecords/* .longestRun */);
-
   const handleLogout = () => {
     // Call the logout method from AuthService
     Auth.logout();

@@ -13,7 +13,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
 
   const [login] = useMutation(LOGIN_USER);
 
@@ -43,7 +43,7 @@ function Login() {
       const signInSuccessful = true; // This should be the result of your sign-in operation.
 
       if (signInSuccessful) {
-        
+
         navigate('/profile');
       }
     } catch (e) {

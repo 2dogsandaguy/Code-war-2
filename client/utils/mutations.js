@@ -23,7 +23,29 @@ export const LOGIN_USER = gql`
   }
 `;
 
-// User sign-up mutation
+
+export const SET_GOALS = gql`
+  mutation setGoals(
+    $weightLossGoal: String
+    $bodyFatGoal: String
+    $fastestMileGoal: String
+    $personalRecordGoal: String
+  ) {
+    setGoals(
+      weightLossGoal: $weightLossGoal
+      bodyFatGoal: $bodyFatGoal
+      fastestMileGoal: $fastestMileGoal
+      personalRecordGoal: $personalRecordGoal
+    ) {
+      _id
+      weightLossGoal
+      bodyFatGoal
+      fastestMileGoal
+      personalRecordGoal
+    }
+  }
+`;
+
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {

@@ -25,6 +25,12 @@ export const GET_ME = gql`
         weight_type
         weightKind
       } 
+      setGoals{
+        weightLossGoal
+        bodyFatGoal
+        fastestMileGoal
+        personalRecordGoal
+      }
       personalRecords {
         maxWeight
         longestRun
@@ -73,6 +79,12 @@ export const VIEW_HISTORY = gql`
         weight_amount
         weight_type
         weightKind
+      }
+      setGoals{
+        weightLossGoal
+        bodyFatGoal
+        fastestMileGoal
+        personalRecordGoal
       }
     }
   }

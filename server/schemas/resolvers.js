@@ -1,4 +1,4 @@
-const { Cardio, User, Weight } = require('../models');
+const { Cardio, User, Weight, Goals } = require('../models');
 const bcrypt = require('bcrypt');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
@@ -10,8 +10,9 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .populate({ path: 'weightRoutines' })
           .populate({ path: 'cardioRoutines' })
+          .populate({path: 'setGoals'})
           .select('-__v -password')
-
+          console.log('User Data:', userData); 
         //console.log({ "userData queried": userData })
         //console.log({ "first weight routine": userData.weightRoutines[0] })
         return userData;
@@ -92,6 +93,49 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    setGoals: async (_, { weightLossGoal, bodyFatGoal, fastestMileGoal, personalRecordGoal }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not authenticated');
+      }
+    
+      try {
+        // Update the user document
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user._id,
+          {
+            $set: {
+              'setGoals': {
+                weightLossGoal,
+                bodyFatGoal,
+                fastestMileGoal,
+                personalRecordGoal,
+              },
+            },
+          },
+          { new: true }
+        );
+    
+        // Update the Goals collection
+        const goals = await Goals.findOneAndUpdate(
+          { _id: updatedUser.setGoals._id },
+          {
+            $set: {
+              weightLossGoal,
+              bodyFatGoal,
+              fastestMileGoal,
+              personalRecordGoal,
+            },
+          },
+          { new: true }
+        );
+    
+        return updatedUser;
+      } catch (error) {
+        console.error('Error setting goals:', error);
+        throw new Error('Error setting goals');
+      }
+    },
+    
     deleteWeightRoutine: async (_, { weightRoutineId }, context) => {
       if (!context.user) {
         throw new AuthenticationError('Not authenticated');

@@ -13,6 +13,12 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    setGoals(
+      weightLossGoal: String
+      bodyFatGoal: String
+      fastestMileGoal: String
+      personalRecordGoal: String
+    ): User
     createCardio(cardio_type: String!, distanceType: String!,
                 distance: Int!, durationType: String!,
                 duration: Int!): Cardio
@@ -35,10 +41,19 @@ const typeDefs = `
     email: String
     cardioRoutines: [Cardio]
     weightRoutines: [Weight]
+    setGoals: [Goals]
     personalRecords: PersonalRecords
     streak: Int 
   }
 
+  
+  type Goals {
+    _id: ID
+    weightLossGoal: String
+    bodyFatGoal: String
+    fastestMileGoal: String
+    personalRecordGoal: String
+  }
 
   type Cardio {
     _id: ID

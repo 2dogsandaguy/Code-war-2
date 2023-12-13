@@ -6,12 +6,12 @@ import './index.css';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Error from './components/Error';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Profile from './components/Profile';
 import CreateWorkout from './components/CreateWorkout';
 import ViewHistory from './components/ViewHistory';
 
-const router = createBrowserRouter([
+createBrowserRouter([
   {
     path: '*',
     element: <App />,
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'Profile',
-        element: <Profile/>
+        element: <Profile />
       },
       {
         path: 'CreateWorkout',

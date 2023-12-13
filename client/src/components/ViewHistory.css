@@ -42,8 +42,11 @@
   .history-container h2,
   .history-item p {
     position: relative;
-    z-index: 2;
-    color: rgb(0, 0, 0);
+  z-index: 2;
+  color: white; /* Set the text color to white */
+  background-color: rgba(0, 0, 0, 0.5); /* Add a background color with the same transparency as the overlay */
+  padding: 10px; /* Add padding to improve readability */
+  border-radius: 8px;
   }
   
   .history-container h1 {

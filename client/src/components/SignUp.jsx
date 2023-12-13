@@ -4,7 +4,7 @@ import { ADD_USER } from '../../utils/mutations';
 import './SignUp.css';
 import { Link, useNavigate } from 'react-router-dom';
 /* import bgImage from '../../../public/images/home_image.jpg'; */
-import SignUpPageImage from '../../../public/images/signUp_page.png';
+import SignUpPageImage from '../../../public/images/SignUp_page.jpg';
 function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

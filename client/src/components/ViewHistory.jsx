@@ -95,12 +95,11 @@ const ViewHistory = () => {
               console.log(item);
               return (
               <div key={item._id} className="history-item">
-                <p>Cardio Type: {item.cardio_type}</p>
-                <p>DistanceType: {item.distanceType}</p>
                 <p>Created At: {item.createdAt}</p>
-                <p>Distance: {item.distance} Miles</p>
-                <p>Duration: {item.duration} Minutes</p>
-                <p>DurationType: {item.durationType} Minutes</p>
+                <p>Cardio Type: {item.cardio_type}</p>
+                <p>Distance: {item.distance} {item.distanceType} </p>
+                <p>Duration: {item.duration} {item.durationType}</p>
+                
 
                 <button onClick={() => handleDeleteCardioRoutine(item._id)}>Delete</button>
               </div>
@@ -111,8 +110,8 @@ const ViewHistory = () => {
             <h2>Weight Routines</h2>
             {weights && weights.map(item => (
               <div key={item._id} className="history-item">
-                <p>Weight Type: {item.weight_type}</p>
                 <p>Created At: {item.createdAt}</p>
+                <p>Weight Type: {item.weight_type}</p>                
                 <p>Reps: {item.reps}</p>
                 <p>Sets: {item.sets}</p>
                 <p>Weight Amount: {item.weight_amount} {item.weightKind}</p>
@@ -121,7 +120,8 @@ const ViewHistory = () => {
               </div>
             ))}
           </div>
-        </div></div>
+        </div>
+      </div>
       </div>
     </>
   );

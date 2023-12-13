@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 // Query to get the current user
 export const GET_ME = gql`
@@ -14,7 +14,7 @@ export const GET_ME = gql`
         createdAt
         distance
         durationType
-      } 
+      }
       weightRoutines {
         _id
         weiDuration
@@ -24,8 +24,8 @@ export const GET_ME = gql`
         weight_amount
         weight_type
         weightKind
-      } 
-      setGoals{
+      }
+      setGoals {
         weightLossGoal
         bodyFatGoal
         fastestMileGoal
@@ -35,27 +35,10 @@ export const GET_ME = gql`
         maxWeight
         longestRun
       }
-      streak 
-    }  
-  }
-`;
-/* // Query to get the User data for the profile page
-export const GET_USER_DATA = gql`
-  query GetUserData {
-    user {
-      _id
-      username
-      email
-    
-      personalRecords {
-        maxWeight
-        longestRun
-      }
-      streak 
+      streak
     }
   }
-`; */
-
+`;
 
 export const VIEW_HISTORY = gql`
   query ViewHistory {
@@ -80,7 +63,7 @@ export const VIEW_HISTORY = gql`
         weight_type
         weightKind
       }
-      setGoals{
+      setGoals {
         weightLossGoal
         bodyFatGoal
         fastestMileGoal
@@ -89,5 +72,3 @@ export const VIEW_HISTORY = gql`
     }
   }
 `;
-
-

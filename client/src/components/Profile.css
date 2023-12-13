@@ -10,11 +10,19 @@
 .heading {
   font-size: 40px; /* Larger font size for headings */
   font-weight: bold; /* Bold font for headings */
+  color: rgb(226, 49, 49); /* Set the text color to white */
+  background-color: rgba(0, 0, 0, 0.5); /* Add a background color with the same transparency as the overlay */
+  padding: 10px; /* Add padding to improve readability */
+  border-radius: 8px;
 }
 
 .text {
   font-size: 22px; /* Standard font size for text */
   text-align: center;
+  color: rgb(67, 211, 31); /* Set the text color to white */
+  background-color: rgba(0, 0, 0, 0.5); /* Add a background color with the same transparency as the overlay */
+  padding: 10px; /* Add padding to improve readability */
+  border-radius: 8px;
 }
 
 h1 {
@@ -42,5 +50,22 @@ ul {
   margin: 5px;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+.outline li {
+  color: #ff0000; /* Red color for <li> text */
+}
+
+.outline p {
+  color: #00ff00; /* Green color for <p> text */
+}
+
+.logout {
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
+  color: white;
+  cursor: pointer;
+  font-size: 14px; 
   
 }

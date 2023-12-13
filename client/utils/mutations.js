@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
- // User login mutation
+// User login mutation
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -22,7 +22,6 @@ export const LOGIN_USER = gql`
     }
   }
 `;
-
 
 export const SET_GOALS = gql`
   mutation setGoals(
@@ -54,7 +53,6 @@ export const ADD_USER = gql`
         _id
         username
         email
-        
       }
     }
   }
@@ -62,10 +60,20 @@ export const ADD_USER = gql`
 
 // Cardio creation mutation
 export const CREATE_CARDIO = gql`
-  mutation CreateCardio($cardio_type: String!, $distanceType: String!,
-                          $distance: Int!, $durationType: String!, $duration: Int!) {
-    createCardio(cardio_type: $cardio_type, distanceType: $distanceType, 
-                  distance: $distance, durationType: $durationType, duration: $duration) {
+  mutation CreateCardio(
+    $cardio_type: String!
+    $distanceType: String!
+    $distance: Int!
+    $durationType: String!
+    $duration: Int!
+  ) {
+    createCardio(
+      cardio_type: $cardio_type
+      distanceType: $distanceType
+      distance: $distance
+      durationType: $durationType
+      duration: $duration
+    ) {
       _id
       cardio_type
       distanceType
@@ -87,22 +95,22 @@ export const DELETE_CARDIO = gql`
 // Weights creation mutation
 export const CREATE_WEIGHTS = gql`
   mutation CreateWeights(
-    $weiDuration: Int,
-    $weightDuration: String,
-    $reps: Int!,
-    $sets: Int!,
-    $weight_amount: Int!,
-    $weightKind: String!,
-    $weight_type: String!,
+    $weiDuration: Int
+    $weightDuration: String
+    $reps: Int!
+    $sets: Int!
+    $weight_amount: Int!
+    $weightKind: String!
+    $weight_type: String!
   ) {
     createWeights(
-      weiDuration: $weiDuration,
-      weightDuration: $weightDuration,
-      reps: $reps,
-      sets: $sets,
-      weight_amount: $weight_amount,
-      weight_type: $weight_type,
-      weightKind: $weightKind,
+      weiDuration: $weiDuration
+      weightDuration: $weightDuration
+      reps: $reps
+      sets: $sets
+      weight_amount: $weight_amount
+      weight_type: $weight_type
+      weightKind: $weightKind
     ) {
       _id
       weiDuration
@@ -115,12 +123,12 @@ export const CREATE_WEIGHTS = gql`
       weightKind
     }
   }
-`; 
+`;
 
 export const DELETE_WEIGHT = gql`
-mutation DeleteWeight ($weightRoutineId: ID!){
-  deleteWeightRoutine(weightRoutineId: $weightRoutineId){
-    _id
+  mutation DeleteWeight($weightRoutineId: ID!) {
+    deleteWeightRoutine(weightRoutineId: $weightRoutineId) {
+      _id
+    }
   }
-}
 `;

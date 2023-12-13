@@ -25,7 +25,7 @@ function SignUp() {
           password,
         },
       });
-
+      console.log("addUser", data);
       // Set the success message
       setMessage('Signup successful! Redirecting to home page...');
 
@@ -50,7 +50,7 @@ function SignUp() {
     justifyContent: 'center',
     alignItems: 'center',
   };
-  
+
 
   return (
     <>
@@ -58,7 +58,7 @@ function SignUp() {
       <header className="header">
         <Link to="/">Back to Login</Link>
       </header>
-      
+
       <div className="container" style={containerStyle}>
         <form onSubmit={handleSubmit} className="mt-5">
           <div className="mb-3">
@@ -76,8 +76,8 @@ function SignUp() {
           <button type="submit" className="btn btn-primary">Sign Up</button>
         </form>
       </div>
-    
-    
+
+
     </>
   );
 }

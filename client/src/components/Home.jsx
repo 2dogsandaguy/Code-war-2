@@ -81,7 +81,7 @@ function Login() {
         </label>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px', marginTop: '20px' }}>
           <button onClick={handleSignIn}>Sign In</button>
-          <button><Link to="/signup" style={{ color: 'white' }}>Sign Up</Link></button>
+          <button><Link to="/signup" style={{ color: 'black' }}>Sign Up</Link></button>
           {/* Conditional rendering of YourComponent */}
           {isLoggedIn && <YourComponent />}
         </div>

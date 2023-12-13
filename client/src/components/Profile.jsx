@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
 import Auth from '../../utils/auth'; // Import the AuthService
 import './Profile.css';
-
+import profileImg from '../../../public/images/profile_image.jpg'
 const Profile = () => {
 
   const location = useLocation();
@@ -26,6 +26,17 @@ const Profile = () => {
     Auth.logout();
   };
   return (
+    <div className="create-container" style={{
+      backgroundImage: `url(${profileImg})`,
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      overflow: 'hidden',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      position: 'relative'
+    }}>
     <div className="content-container">
       <div className="profile">
         <h1 className="heading">Welcome {username}!</h1>
@@ -54,8 +65,8 @@ const Profile = () => {
                 <p>Weight Type: {workoutData.weightType}</p>
                 <p>Reps: {workoutData.reps}</p>
                 <p>Sets: {workoutData.sets}</p>
-                <p>Weight Amount: {workoutData.weightAmount}</p>
-                <p>Duration: {workoutData.duration}</p>
+                <p>Weight Amount: {workoutData.weightAmount} {workoutData.weightKind}</p>
+                <p>Duration: {workoutData.weiDuration} {workoutData.weightDuration}</p>
               </div>
             )}
           </div>
@@ -68,7 +79,7 @@ const Profile = () => {
           <button onClick={handleLogout}>Log Out</button>
         </div>
       </div>
-    </div>
+    </div></div>
   );
 }
 export default Profile;

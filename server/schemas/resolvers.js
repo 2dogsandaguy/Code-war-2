@@ -32,7 +32,7 @@ const resolvers = {
 
       if (!user) {
         console.log("there is a error")
-        /* throw  AuthenticationError */
+        throw new  AuthenticationError
       }
       const correctPw = await bcrypt.compare(password, user.password);
       if (!correctPw) {
@@ -42,7 +42,7 @@ const resolvers = {
 
       // Assuming weightRoutines is an array, make sure it's not null
       user.weightRoutines = user.weightRoutines || [];
-      user.caridoRoutines = user.caridoRoutines || [];
+      user.cardioRoutines = user.cardioRoutines || [];
 
       const token = signToken(user);
       return { token, user };
@@ -58,7 +58,7 @@ const resolvers = {
           duration,
           durationType,
         });
-        await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } }); 
         return cardio;
       }
       throw AuthenticationError;
@@ -76,14 +76,16 @@ const resolvers = {
         throw new Error('Error deleting cardio routine');
       }
     },
-    createWeights: async (_, { duration, reps, sets, weight_amount, weight_type }, context) => {
+    createWeights: async (_, { weiDuration, weightDuration, reps, sets, weight_amount, weightKind, weight_type }, context) => {
       if (context.user) {
         const weight = await Weight.create({
-          duration,
+          weiDuration,
+          weightDuration,
           reps,
           sets,
           weight_amount,
           weight_type,
+          weightKind,
         });
         await User.findByIdAndUpdate(context.user._id, { $push: { weightRoutines: weight._id } });
         return weight;

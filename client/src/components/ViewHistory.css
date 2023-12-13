@@ -9,14 +9,23 @@
     color: white;
     text-decoration: none;
   }
-  
+  .logout {
+    position: absolute;
+    top: 10px; /* Adjust the top value based on your preference */
+    right: 10px; /* Adjust the right value based on your preference */
+    color: white;
+    cursor: pointer;
+    font-size: 14px; 
+    
+  }
+
   .history-container {
     background-image: url('../../../public/images/viewHistorytrail.jpg'); /* Replace with the actual path to your image */
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
     height: 100vh;
-    overflow: hidden;
+    
   }
   
   .history-container::before {
@@ -67,4 +76,7 @@
     font-size: 1.2rem;
     margin-bottom: 8px;
   }
-  
+  p{
+    color: argb(255, 0, 38)
+    
+  }

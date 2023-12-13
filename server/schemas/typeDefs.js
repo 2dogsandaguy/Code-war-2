@@ -17,11 +17,13 @@ const typeDefs = `
                 distance: Int!, durationType: String!,
                 duration: Int!): Cardio
                 deleteCardioRoutine(cardioRoutineId: ID!): Cardio
-    createWeights(duration: Int!, 
+    createWeights(weiDuration: Int,
+                  weightDuration: String, 
                   reps: Int!, 
                   sets: Int!, 
                   weight_amount: Int!, 
-                  weight_type: String!
+                  weight_type: String!,
+                  weightKind: String 
                   ): Weight
                   deleteWeightRoutine(weightRoutineId: ID!): Weight 
   }
@@ -50,12 +52,14 @@ const typeDefs = `
   
   type Weight {
     _id: ID
-    duration: Int
+    weiDuration: Int
+    weightDuration: String
     createdAt: String
     reps: Int
     sets: Int
     weight_amount: Int
     weight_type: String
+    weightKind: String
   }
   type PersonalRecords {
     maxWeight: Int

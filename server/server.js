@@ -57,6 +57,7 @@ const startApolloServer = async () => {
     });
   } catch (error) {
     console.error('Error starting Apollo Server:', error);
+    console.error('Error details:', error.networkError?.result?.errors);
   }
 };
 

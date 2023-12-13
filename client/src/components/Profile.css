@@ -1,8 +1,10 @@
 .profile {
+  display: flex;
   color: #001f3f; /* Navy blue text */
   font-family: Arial, sans-serif; /* Use a legible font */
   padding-top: 20px; /* Push content down */
-  padding-left: 20px; /* Push content to the right */
+  flex-direction: column;
+  align-items: center;
 }
 
 .heading {
@@ -12,9 +14,33 @@
 
 .text {
   font-size: 22px; /* Standard font size for text */
+  text-align: center;
 }
 
 h1 {
   margin: 0;
   padding: 0;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.outline {
+  display: flex;
+  padding: 5px;
+  border-style: solid;
+  border-radius: 25px;
+  margin: 5px;
+  flex-direction: column;
+  align-items: center;
+  
 }

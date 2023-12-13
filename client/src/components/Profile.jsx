@@ -26,45 +26,48 @@ const Profile = () => {
     Auth.logout();
   };
   return (
-
-    <div className="profile">
-      <h1 className="heading">Welcome {username}!</h1>
-      <p className="text">Email: {email}</p>
-      {/* <p className="text">Your Streak: {streak} days</p> */}
-      <p className="text">Personal Records:</p>
-      <ul>
-        <li>Max Weight Lifted: {workoutData?.weightAmount} Max Weight</li>
-        <br />
-        <li>Longest Run: {workoutData?.distance} Miles</li>
-      </ul>
-
-      {workoutData && (
-        <div>
-          <br/>
-          <p className="text">Recently Added Workout:</p>
-          {workoutData.cardioType && (
-            <div>
-              <p>Cardio Type: {workoutData.cardioType}</p>
-              <p>Distance: {workoutData.distance} {workoutData.distanceType} </p>
-              <p>Duration: {workoutData.duration} {workoutData.durationType} </p>
-            </div>
-          )}
-          {workoutData.weightType && (
-            <div>
-              <p>Weight Type: {workoutData.weightType}</p>
-              <p>Reps: {workoutData.reps}</p>
-              <p>Sets: {workoutData.sets}</p>
-              <p>Weight Amount: {workoutData.weightAmount}</p>
-              <p>Duration: {workoutData.duration}</p>
-            </div>
-          )}
+    <div className="content-container">
+      <div className="profile">
+        <h1 className="heading">Welcome {username}!</h1>
+        <p className="text">Email: {email}</p>
+        <div className='outline'>
+          {/* <p className="text">Your Streak: {streak} days</p> */}
+          <p className="text">Personal Records:</p>
+          <ul>
+            <li>Max Weight Lifted: {workoutData?.weightAmount} Max Weight</li>
+            <br />
+            <li>Longest Run: {workoutData?.distance} Miles</li>
+          </ul>
         </div>
-      )}
-      {/* Log out button */}
-      <button onClick={handleLogout}>Log Out</button>
-      {/* Nav buttons */}
-      <Link to="/create-workout" style={{ marginRight: '20px' }}>Create Workout Routine</Link>
-      <Link to="/view-history">View Workout History</Link>
+        {workoutData && (
+          <div className='outline'>
+            <p className="text">Recently Added Workout:</p>
+            {workoutData.cardioType && (
+              <div>
+                <p>Cardio Type: {workoutData.cardioType}</p>
+                <p>Distance: {workoutData.distance} {workoutData.distanceType} </p>
+                <p>Duration: {workoutData.duration} {workoutData.durationType} </p>
+              </div>
+            )}
+            {workoutData.weightType && (
+              <div>
+                <p>Weight Type: {workoutData.weightType}</p>
+                <p>Reps: {workoutData.reps}</p>
+                <p>Sets: {workoutData.sets}</p>
+                <p>Weight Amount: {workoutData.weightAmount}</p>
+                <p>Duration: {workoutData.duration}</p>
+              </div>
+            )}
+          </div>
+        )}
+        <div className="links">
+          {/* Nav buttons */}
+          <Link to="/create-workout" style={{ padding: '10px 5px 10px 5px', borderStyle: 'solid', borderRadius: '10px', margin: '5px 0 5px 0' }}>Create Workout Routine</Link>
+          <Link to="/view-history" style={{ padding: '10px 5px 10px 5px', borderStyle: 'solid', borderRadius: '10px', marginBottom: '5px' }}>View Workout History</Link>
+          {/* Log out button */}
+          <button onClick={handleLogout}>Log Out</button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -20,4 +20,23 @@
 button {
   width: 150px;
   white-space: nowrap;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .large-input {
+    width: 80%;
+  }
+
+  .large-bold-text {
+    font-size: 1.2rem;
+  }
+
+  .lightblue-text {
+    font-size: 30px;
+  }
+
+  .label-email {
+    margin: 0px;
+  }
 }

@@ -56,9 +56,11 @@ function Login() {
     <div style={{
       backgroundImage: `url(${bgImage})`,
       backgroundSize: 'cover',
+      backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
       position: 'relative',
       height: '100vh',
+      width: '100%',
       overflow: 'hidden'
     }}>
       <div style={{

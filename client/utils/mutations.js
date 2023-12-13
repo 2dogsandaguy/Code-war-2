@@ -12,8 +12,11 @@ export const LOGIN_USER = gql`
         cardioRoutines {
           _id
           cardio_type
+          distanceType
           createdAt
           distance
+          duration
+          durationType
         }
       }
     }
@@ -32,8 +35,11 @@ export const ADD_USER = gql`
         cardioRoutines {
           _id
           cardio_type
+          distanceType
           createdAt
           distance
+          duration
+          durationType
         }
       }
     }
@@ -42,14 +48,16 @@ export const ADD_USER = gql`
 
 // Cardio creation mutation
 export const CREATE_CARDIO = gql`
-  mutation CreateCardio($cardio_type: String!, 
-                          $distance: Int!, $duration: Int!) {
-    createCardio(cardio_type: $cardio_type, 
-                  distance: $distance, duration: $duration) {
+  mutation CreateCardio($cardio_type: String!, $distanceType: String!
+                          $distance: Int!, $durationType: String! $duration: Int!) {
+    createCardio(cardio_type: $cardio_type, distanceType: $distanceType 
+                  distance: $distance, durationType: $durationType duration: $duration) {
       _id
       cardio_type
+      distanceType
       createdAt
       distance
+      durationType
     }
   }
 `;
@@ -80,6 +88,7 @@ export const CREATE_WEIGHTS = gql`
     ) {
       _id
       duration
+      createdAt
       reps
       sets
       weight_amount

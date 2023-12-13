@@ -1,10 +1,9 @@
+/* Global Styles */
 body {
-    background-color: white;
+    background-color: white; /* or any other color */
 }
 
-h2 {
-    color: blue;
-}
+
 
 .header {
     display: flex;
@@ -13,8 +12,17 @@ h2 {
     padding: 10px;
     font-size: 24px;
 }
-
-.container {
+span {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: rgb(34, 100, 242);
+    font-weight: bolder;
+}
+.create-container {
+    background-image: url(../../../public/images/strength-training-vs-cardio.jpg) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,12 +30,24 @@ h2 {
     position: relative;
 }
 
-.box-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Components */
 .box {
     width: 150px;
     height: 150px;
@@ -46,19 +66,8 @@ h2 {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.box-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
 
-/* .cardio-list {
-    width: 200px;
-    text-align: center;
-} */
-
-select {
+.select {
     font-size: 1.2em;
     padding: 10px;
     border: none;
@@ -70,22 +79,6 @@ select {
     cursor: pointer;
 }
 
-select, input, button {
+.select, input, .button {
     margin: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 1.2em;
-    color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
 }

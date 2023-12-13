@@ -45,8 +45,8 @@ const Profile = () => {
           {workoutData.cardioType && (
             <div>
               <p>Cardio Type: {workoutData.cardioType}</p>
-              <p>Distance: {workoutData.distance}</p>
-              <p>Duration: {workoutData.duration}</p>
+              <p>Distance: {workoutData.distance} {workoutData.distanceType} </p>
+              <p>Duration: {workoutData.duration} {workoutData.durationType} </p>
             </div>
           )}
           {workoutData.weightType && (

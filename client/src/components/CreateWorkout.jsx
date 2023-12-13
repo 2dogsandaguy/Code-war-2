@@ -2,6 +2,7 @@ import './createworkout.css';
 import { Link, useNavigate} from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import WorkoutImg from '../../../public/images/strength-training-vs-cardio.png';
 import { CREATE_CARDIO } from '../../utils/mutations';  
 import { CREATE_WEIGHTS } from '../../utils/mutations';
 import { VIEW_HISTORY,  GET_ME } from '../../utils/queries';
@@ -14,7 +15,8 @@ function CreateWorkout () {
     
     const [cardioType, setCardioType] = useState('');
     const [duration, setDuration] = useState('');
-    
+    const [distanceType, setDistanceType] = useState('');
+    const [durationType, setDurationType] = useState('');
    /*  const [weight, setWeight] = useState(''); // Add weight state */
     const [reps, setReps] = useState('');
     const [sets, setSets] = useState('');
@@ -39,7 +41,9 @@ function CreateWorkout () {
           const { data } = await createCardio({
             variables: {
               cardio_type: cardioType,
+              distanceType: distanceType,
               distance: parseFloat(distance),
+              durationType: durationType,
               duration: parseInt(duration),
             },
           });
@@ -82,6 +86,8 @@ function CreateWorkout () {
         setShowWeightsList(false);
         setShowInput(true);
         setCardioType("Running");
+        setDistanceType("Miles");
+        setDurationType("minutes");
     };
 
     const handleWeightsClick = () => {
@@ -106,7 +112,9 @@ function CreateWorkout () {
           await handleCreateCardio();
           workoutData = {
             cardioType,
+            distanceType,
             distance,
+            durationType,
             duration,
           };
         } else if (showWeightsList) {
@@ -145,10 +153,22 @@ function CreateWorkout () {
 
     return (
         <>
-            <header className="header">
+        
+          <header className="header">
                 <Link to="/profile">Back to Profile</Link>
             </header>
-            <div className="container">
+            <div className="create-container" style={{
+  backgroundImage: `url(${WorkoutImg})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  position: 'relative'
+}}>
+
         <div className="box-container">
             <div>
                 {!showInput &&
@@ -172,12 +192,29 @@ function CreateWorkout () {
                                placeholder="Enter distance" 
                                onChange={handleDistanceChange} 
                         />
+                        <select onChange={(e) =>  {
+                            console.log('distance type selected:', e.target.value);
+                            setDistanceType(e.target.value);
+                        }}>
+                            <option value="Miles">Miles</option>
+                            <option value="Km">Km</option>
+                            <option value="Steps">Steps</option>
+                            <option value="Other">Other</option>
+                        </select>
                         <input
                             type="text"
                             placeholder="Enter duration (in minutes)"
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
-                        />
+                        /> <select onChange={(e) =>  {
+                          console.log('duration type selected:', e.target.value);
+                          setDurationType(e.target.value);
+                      }}>
+                          <option value="Minutes">Minutes</option>
+                          <option value="Hours">Hours</option>
+                          <option value="Seconds">Seconds</option>
+                          <option value="Days">Days</option>
+                      </select>
 
                         <button onClick={handleSaveClick}>Save</button>
                     </div>
@@ -197,6 +234,7 @@ function CreateWorkout () {
                     <option value="Curls">Curls</option>
                     <option value="Squats">Squats</option>
                     <option value="Hammer Curls">Hammer Curls</option>
+                    <option value="Bench press">Bench Press</option>
                 </select>
             {/* Add input fields for each parameter in createWeights mutation */}
                 <input
@@ -229,6 +267,7 @@ function CreateWorkout () {
                 </div>
             </div>
         </>
+        
     );
 }
 

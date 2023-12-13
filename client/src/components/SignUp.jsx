@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import './SignUp.css';
 import { Link, useNavigate } from 'react-router-dom';
-import bgImage from '../../../public/images/home_image.jpg';
-
+/* import bgImage from '../../../public/images/home_image.jpg'; */
+import SignUpPageImage from '../../../public/images/signUp_page.png';
 function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -39,22 +39,27 @@ function SignUp() {
       console.log("Error details:", err.message, err.graphQLErrors, err.networkError);
     }
   };
+  const containerStyle = {
+    backgroundImage: `url(${SignUpPageImage})`,
+    backgroundSize: 'contain',
+    backgroundRepeat: 'repeat', // You can choose 'repeat', 'repeat-x', or 'repeat-y' based on your preference
+    position: 'relative',
+    height: '100vh',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+  
 
   return (
     <>
-    <div style={{
-      backgroundImage: `url(${bgImage})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      position: 'relative',
-      height: '100vh',
-      overflow: 'hidden'
-    }}>
       {message && <h2 style={{ color: 'green', textAlign: 'center' }}>{message}</h2>}
       <header className="header">
         <Link to="/">Back to Login</Link>
       </header>
-      <div className="container">
+      
+      <div className="container" style={containerStyle}>
         <form onSubmit={handleSubmit} className="mt-5">
           <div className="mb-3">
             <label className="form-label">Username:</label>
@@ -71,7 +76,8 @@ function SignUp() {
           <button type="submit" className="btn btn-primary">Sign Up</button>
         </form>
       </div>
-    </div>
+    
+    
     </>
   );
 }

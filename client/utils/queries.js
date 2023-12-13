@@ -10,8 +10,10 @@ export const GET_ME = gql`
       cardioRoutines {
         _id
         cardio_type
+        distanceType
         createdAt
         distance
+        durationType
       } 
       weightRoutines {
         _id
@@ -53,12 +55,16 @@ export const VIEW_HISTORY = gql`
       cardioRoutines {
         _id
         cardio_type
+        distanceType
         createdAt
         distance
+        durationType
+        duration
       }
       weightRoutines {
         _id
         duration
+        createdAt
         reps
         sets
         weight_amount

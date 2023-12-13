@@ -7,9 +7,13 @@ const weightSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  duration: {
+  weiDuration: {
     type: Number,
-    required: true,
+    required: false,
+  },
+  weightDuration: {
+    type: String,
+    required: false,
   },
   reps: {
     type: Number,
@@ -24,6 +28,10 @@ const weightSchema = new Schema({
     required: true,
   },
   weight_type: {
+    type: String,
+    required: true,
+  },
+  weightKind: {
     type: String,
     required: true,
   },

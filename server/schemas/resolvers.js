@@ -1,4 +1,4 @@
-const { Cardio, User, Weight } = require('../models');
+const { Cardio, User, Weight, Goals } = require('../models');
 const bcrypt = require('bcrypt');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
@@ -10,8 +10,9 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .populate({ path: 'weightRoutines' })
           .populate({ path: 'cardioRoutines' })
+          .populate({path: 'setGoals'})
           .select('-__v -password')
-
+          console.log('User Data:', userData); 
         //console.log({ "userData queried": userData })
         //console.log({ "first weight routine": userData.weightRoutines[0] })
         return userData;
@@ -32,7 +33,7 @@ const resolvers = {
 
       if (!user) {
         console.log("there is a error")
-        /* throw  AuthenticationError */
+        throw new  AuthenticationError
       }
       const correctPw = await bcrypt.compare(password, user.password);
       if (!correctPw) {
@@ -42,7 +43,7 @@ const resolvers = {
 
       // Assuming weightRoutines is an array, make sure it's not null
       user.weightRoutines = user.weightRoutines || [];
-      user.caridoRoutines = user.caridoRoutines || [];
+      user.cardioRoutines = user.cardioRoutines || [];
 
       const token = signToken(user);
       return { token, user };
@@ -58,7 +59,7 @@ const resolvers = {
           duration,
           durationType,
         });
-        await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { cardioRoutines: cardio._id } }); 
         return cardio;
       }
       throw AuthenticationError;
@@ -76,20 +77,65 @@ const resolvers = {
         throw new Error('Error deleting cardio routine');
       }
     },
-    createWeights: async (_, { duration, reps, sets, weight_amount, weight_type }, context) => {
+    createWeights: async (_, { weiDuration, weightDuration, reps, sets, weight_amount, weightKind, weight_type }, context) => {
       if (context.user) {
         const weight = await Weight.create({
-          duration,
+          weiDuration,
+          weightDuration,
           reps,
           sets,
           weight_amount,
           weight_type,
+          weightKind,
         });
         await User.findByIdAndUpdate(context.user._id, { $push: { weightRoutines: weight._id } });
         return weight;
       }
       throw AuthenticationError;
     },
+    setGoals: async (_, { weightLossGoal, bodyFatGoal, fastestMileGoal, personalRecordGoal }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not authenticated');
+      }
+    
+      try {
+        // Update the user document
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user._id,
+          {
+            $set: {
+              'setGoals': {
+                weightLossGoal,
+                bodyFatGoal,
+                fastestMileGoal,
+                personalRecordGoal,
+              },
+            },
+          },
+          { new: true }
+        );
+    
+        // Update the Goals collection
+        const goals = await Goals.findOneAndUpdate(
+          { _id: updatedUser.setGoals._id },
+          {
+            $set: {
+              weightLossGoal,
+              bodyFatGoal,
+              fastestMileGoal,
+              personalRecordGoal,
+            },
+          },
+          { new: true }
+        );
+    
+        return updatedUser;
+      } catch (error) {
+        console.error('Error setting goals:', error);
+        throw new Error('Error setting goals');
+      }
+    },
+    
     deleteWeightRoutine: async (_, { weightRoutineId }, context) => {
       if (!context.user) {
         throw new AuthenticationError('Not authenticated');

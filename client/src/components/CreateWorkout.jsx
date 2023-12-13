@@ -12,12 +12,14 @@ function CreateWorkout () {
     const [showWeightsList, setShowWeightsList] = useState(false);
     const [showInput, setShowInput] = useState(false);
     const [distance, setDistance] = useState('');
-    
+    const [weightKind, setWeightKind] = useState('');
+    const [weightDuration, setWeightDuration] =useState('');
     const [cardioType, setCardioType] = useState('');
     const [duration, setDuration] = useState('');
     const [distanceType, setDistanceType] = useState('');
     const [durationType, setDurationType] = useState('');
    /*  const [weight, setWeight] = useState(''); // Add weight state */
+    const [weiDuration, setWeiDuration] = useState('');
     const [reps, setReps] = useState('');
     const [sets, setSets] = useState('');
     const [weightAmount, setWeightAmount] = useState('');
@@ -58,17 +60,19 @@ function CreateWorkout () {
         try {
             const { data } = await createWeights({
                 variables: {
-                    duration: parseInt(duration), // Convert to integer if necessary
+                    weiDuration: parseInt(weiDuration), // Convert to integer if necessary
+                    weightDuration: weightDuration,
                     reps: parseInt(reps),
                     sets: parseInt(sets),
                     weight_amount: parseInt(weightAmount),
                     weight_type: weightType,
+                    weightKind: weightKind,
                 },
             });
     
             console.log('Weights created successfully:', data.createWeights);
         } catch (error) {
-            console.error('Error creating weights:', error);
+          console.error('Error creating cardio/weights:', error.message);
         }
     };
       
@@ -95,6 +99,8 @@ function CreateWorkout () {
         setShowCardioList(false);
         setShowInput(true);
         setWeightType("Overhead Press");
+        setWeightDuration("Seconds");
+        setWeightKind("Pounds (lb)")
     };
     
     const navigate = useNavigate();
@@ -124,7 +130,9 @@ function CreateWorkout () {
             reps,
             sets,
             weightAmount,
-            duration, // if we need duration is common for both cardio and weights
+            weightKind,
+            weightDuration,
+            weiDuration, // if we need duration is common for both cardio and weights
           };
         }
       
@@ -240,9 +248,19 @@ function CreateWorkout () {
                 <input
                     type="text"
                     placeholder="Enter duration"
-                    value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
+                    value={weiDuration}
+                    onChange={(e) => setWeiDuration(e.target.value)}
                 />
+                <select onChange={(e) =>  {
+                          console.log('weight duration type selected:', e.target.value);
+                          setWeightDuration(e.target.value);
+                      }}>
+                          <option value="Seconds">Seconds</option>
+                          <option value="Minutes">Minutes</option>
+                          <option value="Hours">Hours</option>
+                          <option value="Days">Days</option>
+                          <option value="N/A">N/A</option>
+                      </select>
                 <input
                     type="text"
                     placeholder="Enter reps"
@@ -258,6 +276,15 @@ function CreateWorkout () {
                     placeholder="Enter weight amount"
                     onChange={(e) => setWeightAmount(e.target.value)}
                 />
+                <select onChange={(e) =>  {
+                          console.log('duration type selected:', e.target.value);
+                          setWeightKind(e.target.value);
+                      }}>
+                          <option value="Pounds (lb)">Pounds (lb)</option>
+                          <option value="Kilograms (kg)">Kilograms (kg)</option>
+                          <option value="Ounces (oz)">Ounces (oz)</option>
+                          <option value="Other">Other</option>
+                      </select>
                 
 
                 <button onClick={handleSaveClick}>Save</button>

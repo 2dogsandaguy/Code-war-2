@@ -11,14 +11,14 @@ db.once("open", async()=>{
             if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
                 .populate({path:'weightRoutines'}) 
-                .populate({path:'caridoRoutines'}) 
+                .populate({path:'cardioRoutines'}) 
                 .select('-__v -password')
                 
                 console.log({"userData queried":userData})
                 console.log({"first weight routine":userData.weightRoutines[0]})
                 return userData;
             }
-            //throw new AuthenticationError; 
+            throw new AuthenticationError; 
     }
 
     const context = {

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { VIEW_HISTORY } from '../../utils/queries'; // Assuming you have a DELETE_WEIGHT mutation
 import { DELETE_WEIGHT, DELETE_CARDIO } from '../../utils/mutations';
-
-/* import bgImage from '../../../public/images/viewHistorytrail.jpg'; */
+import Auth from '../../utils/auth';
+ import skyImage from '../../../public/images/viewHistorytrail.jpg'; 
 
 import "./ViewHistory.css";
 
@@ -61,13 +61,30 @@ const ViewHistory = () => {
       console.error('Error deleting weight routine:', deleteError);
     }
   };
-
+    
+  const handleLogout = () => {
+    // Call the logout method from AuthService
+    Auth.logout();
+  };
 
   return (
     <>
       <header className="header">
         <Link to="/profile">Back to Profile</Link>
+        <button className='logout' onClick={handleLogout}><span>Log Out</span></button>
       </header>
+       
+      <div className="create-container" style={{
+  backgroundImage: `url(${skyImage})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  position: 'relative'
+}}>
       <div className="history-container">
         <h1>Workout History</h1>
 
@@ -98,13 +115,13 @@ const ViewHistory = () => {
                 <p>Created At: {item.createdAt}</p>
                 <p>Reps: {item.reps}</p>
                 <p>Sets: {item.sets}</p>
-                <p>Weight Amount: {item.weight_amount}</p>
-                <p>Duration: {item.duration}</p>
+                <p>Weight Amount: {item.weight_amount} {item.weightKind}</p>
+                <p>Duration: {item.weiDuration} {item.weightDuration}</p>
                 <button onClick={() => handleDeleteWeightRoutine(item._id)}>Delete</button>
               </div>
             ))}
           </div>
-        </div>
+        </div></div>
       </div>
     </>
   );

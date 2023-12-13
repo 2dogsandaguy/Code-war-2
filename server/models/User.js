@@ -21,8 +21,8 @@ const userSchema = new Schema({
     required: true,
   },
   weightRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Weight'}],
-  cardioRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Cardio'}]
-  
+  cardioRoutines: [{type: mongoose.Schema.Types.ObjectId,ref:'Cardio'}],
+  setGoals: [{type: mongoose.Schema.Types.ObjectId,ref:'Goals'}]
 },
 {
   toJSON: {

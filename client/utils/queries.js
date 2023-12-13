@@ -17,12 +17,20 @@ export const GET_ME = gql`
       } 
       weightRoutines {
         _id
-        duration
+        weiDuration
+        weightDuration
         reps
         sets
         weight_amount
         weight_type
+        weightKind
       } 
+      setGoals{
+        weightLossGoal
+        bodyFatGoal
+        fastestMileGoal
+        personalRecordGoal
+      }
       personalRecords {
         maxWeight
         longestRun
@@ -31,7 +39,7 @@ export const GET_ME = gql`
     }  
   }
 `;
-// Query to get the User data for the profile page
+/* // Query to get the User data for the profile page
 export const GET_USER_DATA = gql`
   query GetUserData {
     user {
@@ -46,7 +54,7 @@ export const GET_USER_DATA = gql`
       streak 
     }
   }
-`;
+`; */
 
 
 export const VIEW_HISTORY = gql`
@@ -63,12 +71,20 @@ export const VIEW_HISTORY = gql`
       }
       weightRoutines {
         _id
-        duration
+        weiDuration
+        weightDuration
         createdAt
         reps
         sets
         weight_amount
         weight_type
+        weightKind
+      }
+      setGoals{
+        weightLossGoal
+        bodyFatGoal
+        fastestMileGoal
+        personalRecordGoal
       }
     }
   }

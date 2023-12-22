@@ -26,6 +26,7 @@ export const GET_ME = gql`
         weightKind
       }
       setGoals {
+        createdAt
         weightLossGoal
         bodyFatGoal
         fastestMileGoal
@@ -64,6 +65,7 @@ export const VIEW_HISTORY = gql`
         weightKind
       }
       setGoals {
+        createdAt
         weightLossGoal
         bodyFatGoal
         fastestMileGoal

@@ -14,6 +14,11 @@ const goalsSchema = new Schema({
   personalRecordGoal: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
 });
 
 const Goals = model('Goals', goalsSchema);

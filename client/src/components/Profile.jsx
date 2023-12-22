@@ -1,33 +1,33 @@
-/* import { useState } from 'react'; */
+import { useState } from 'react'; 
 import { Link, useLocation } from 'react-router-dom';
-import { useQuery/* , useMutation  */} from '@apollo/client';
+import { useQuery , useMutation  } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
-/* import { SET_GOALS } from '../../utils/mutations'; */
+import { SET_GOALS } from '../../utils/mutations'; 
 import Auth from '../../utils/auth'; // Import the AuthService
 import './Profile.css';
 import profileImg from '../../../public/images/one-punch.webp'
 
 const Profile = () => {
 
-/*   const [setGoalsMutation] = useMutation(SET_GOALS); // Use the useMutation hook
+
+  const location = useLocation();
+  const { workoutData } = location.state || {}; // Access workout data from state
+
+
+  const { loading, error, data } = useQuery(GET_ME)
+  const [setGoalsMutation, { error: mutationError }] = useMutation(SET_GOALS);
 
   const [goalForm, setGoalForm] = useState({
     weightLossGoal: '',
     bodyFatGoal: '',
     fastestMileGoal: '',
     personalRecordGoal: '',
-  }); */
-  const location = useLocation();
-  const { workoutData } = location.state || {}; // Access workout data from state
-
-
-  const { loading, error, data } = useQuery(GET_ME)
-
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching user data: {error.message}</p>;
 
-/*   console.log('graphql data 2', data)
+  /* console.log('graphql data 2', data) */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setGoalForm({
@@ -38,19 +38,27 @@ const Profile = () => {
 
   const handleGoalSubmission = async (e) => {
     e.preventDefault();
-
+    console.log("Submitting goals...");
     try {
       const { data } = await setGoalsMutation({
         variables: goalForm,
+        refetchQueries: [{ query: GET_ME }],
       });
-
-      console.log("goals", data); // Use 'data' instead of 'data2'
-
-      console.log('Goals set successfully:', data);
-      // Optionally, you can update your local state with the new user data
+      console.log("Goals set successfully:", data);
     } catch (mutationError) {
       console.error('Error setting goals:', mutationError);
+    
+      if (mutationError.graphQLErrors) {
+        mutationError.graphQLErrors.forEach(({ message, locations, path }) => {
+          console.error(`GraphQL Error: ${message}`, { locations, path });
+        });
+      }
+    
+      if (mutationError.networkError) {
+        console.error('Network Error:', mutationError.networkError);
+      }
     }
+    
 
     setGoalForm({
       weightLossGoal: '',
@@ -58,7 +66,7 @@ const Profile = () => {
       fastestMileGoal: '',
       personalRecordGoal: '',
     });
-  }; */
+  };
 
   const { username, email/* , streak, personalRecords */ } = data.me;
 
@@ -126,7 +134,7 @@ const Profile = () => {
 
 
                  {/*future development*/}
-                {/* <form onSubmit={handleGoalSubmission}>
+                 <form onSubmit={handleGoalSubmission}>
                   <label>
                     Weight Loss Goal:
                     <input
@@ -164,7 +172,7 @@ const Profile = () => {
                     />
                   </label>
                   <button type="submit">Set Goals</button>
-                </form> */}
+                </form> 
               </div>
             </div>
           </div>

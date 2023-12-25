@@ -1,33 +1,32 @@
-/* import { useState } from 'react'; */
+import { useState } from 'react'; 
 import { Link, useLocation } from 'react-router-dom';
-import { useQuery/* , useMutation  */} from '@apollo/client';
+import { useQuery , useMutation  } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
-/* import { SET_GOALS } from '../../utils/mutations'; */
+import { SET_GOALS } from '../../utils/mutations'; 
 import Auth from '../../utils/auth'; // Import the AuthService
 import './Profile.css';
 import profileImg from '../../../public/images/one-punch.webp'
 
+// ... (your existing imports)
+
 const Profile = () => {
-
-/*   const [setGoalsMutation] = useMutation(SET_GOALS); // Use the useMutation hook
-
+  const location = useLocation();
+  const { workoutData } = location.state || {};
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  
+  
+  const { loading, error, data } = useQuery(GET_ME);
+  const [setGoalsMutation] = useMutation(SET_GOALS);
   const [goalForm, setGoalForm] = useState({
     weightLossGoal: '',
     bodyFatGoal: '',
     fastestMileGoal: '',
     personalRecordGoal: '',
-  }); */
-  const location = useLocation();
-  const { workoutData } = location.state || {}; // Access workout data from state
-
-
-  const { loading, error, data } = useQuery(GET_ME)
-
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching user data: {error.message}</p>;
 
-/*   console.log('graphql data 2', data)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setGoalForm({
@@ -38,18 +37,25 @@ const Profile = () => {
 
   const handleGoalSubmission = async (e) => {
     e.preventDefault();
-
+    console.log("Submitting goals...");
     try {
       const { data } = await setGoalsMutation({
         variables: goalForm,
+        refetchQueries: [{ query: GET_ME }],
       });
-
-      console.log("goals", data); // Use 'data' instead of 'data2'
-
-      console.log('Goals set successfully:', data);
-      // Optionally, you can update your local state with the new user data
+      console.log("Goals set successfully:", data);
     } catch (mutationError) {
       console.error('Error setting goals:', mutationError);
+
+      if (mutationError.graphQLErrors) {
+        mutationError.graphQLErrors.forEach(({ message, locations, path }) => {
+          console.error(`GraphQL Error: ${message}`, { locations, path });
+        });
+      }
+
+      if (mutationError.networkError) {
+        console.error('Network Error:', mutationError.networkError);
+      }
     }
 
     setGoalForm({
@@ -58,34 +64,38 @@ const Profile = () => {
       fastestMileGoal: '',
       personalRecordGoal: '',
     });
-  }; */
+    setShowUpdateForm(false);
+  };
 
-  const { username, email/* , streak, personalRecords */ } = data.me;
+  const { username, email, setGoals } = data.me;
+  const userGoals = setGoals && setGoals[0];
 
   const handleLogout = () => {
-    // Call the logout method from AuthService
     Auth.logout();
   };
+
   return (
-    <div className="create-container" style={{
-      backgroundImage: `url(${profileImg})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      overflow: 'hidden',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      position: 'relative'
-    }}>
+    <div
+      className="create-container"
+      style={{
+        backgroundImage: `url(${profileImg})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        /* overflow: 'hidden', */
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        Height: '100vh',
+        position: 'relative',
+        overflowY: 'auto',
+      }}
+    >
       <div className="content-container">
         <div className="profile">
           <h1 className="heading">Welcome {username}!</h1>
           <p className="text">Email: {email}</p>
           <div className="goal-form">
-
             <div className='outline'>
-              {/* <p className="text">Your Streak: {streak} days</p> */}
               <p className="text">Personal Records:</p>
               <ul>
                 <li>Max Weight Lifted: {workoutData?.weightAmount} Max Weight</li>
@@ -115,57 +125,133 @@ const Profile = () => {
               </div>
             )}
             <div className="links">
-              {/* Nav buttons */}
-              <Link to="/create-workout" style={{ backgroundColor: '#fff', padding: '10px 5px 10px 5px', borderStyle: 'solid', borderRadius: '10px', margin: '5px 0 5px 0' }}>Create Workout Routine</Link>
-              <Link to="/view-history" style={{ backgroundColor: '#fff', padding: '10px 5px 10px 5px', borderStyle: 'solid', borderRadius: '10px', marginBottom: '5px' }}>View Workout History</Link>
-              {/* Log out button */}
-              <button className="logout" onClick={handleLogout}><span>Log Out</span></button>
-
-              <div className='outline set-goals'> 
-              <h2>Set Your Goals In development coming soon... </h2>
-
-
-                 {/*future development*/}
-                {/* <form onSubmit={handleGoalSubmission}>
-                  <label>
-                    Weight Loss Goal:
-                    <input
-                      type="text"
-                      name="weightLossGoal"
-                      value={goalForm.weightLossGoal}
-                      onChange={handleInputChange}
-                    />
-                  </label>
-                  <label>
-                    Body Fat Goal:
-                    <input
-                      type="text"
-                      name="bodyFatGoal"
-                      value={goalForm.bodyFatGoal}
-                      onChange={handleInputChange}
-                    />
-                  </label>
-                  <label>
-                    Fastest Mile Goal:
-                    <input
-                      type="text"
-                      name="fastestMileGoal"
-                      value={goalForm.fastestMileGoal}
-                      onChange={handleInputChange}
-                    />
-                  </label>
-                  <label>
-                    Personal Record Goal:
-                    <input
-                      type="text"
-                      name="personalRecordGoal"
-                      value={goalForm.personalRecordGoal}
-                      onChange={handleInputChange}
-                    />
-                  </label>
-                  <button type="submit">Set Goals</button>
-                </form> */}
-              </div>
+              <Link
+                to="/create-workout"
+                style={{
+                  backgroundColor: '#fff',
+                  padding: '10px 5px 10px 5px',
+                  borderStyle: 'solid',
+                  borderRadius: '10px',
+                  margin: '5px 0 5px 0',
+                }}
+              >
+                Create Workout Routine
+              </Link>
+              <Link
+                to="/view-history"
+                style={{
+                  backgroundColor: '#fff',
+                  padding: '10px 5px 10px 5px',
+                  borderStyle: 'solid',
+                  borderRadius: '10px',
+                  marginBottom: '5px',
+                }}
+              >
+                View Workout History
+              </Link>
+              <button className="logout" onClick={handleLogout}>
+                <span>Log Out</span>
+              </button>
+              {userGoals ? (
+                <div className='outline'>
+                  <p className="text">Your Goals:</p>
+                  <ul>
+                    <li>Weight Loss Goal: {userGoals.weightLossGoal}</li>
+                    <li>Body Fat Goal: {userGoals.bodyFatGoal}</li>
+                    <li>Fastest Mile Goal: {userGoals.fastestMileGoal}</li>
+                    <li>Personal Record Goal: {userGoals.personalRecordGoal}</li>
+                  </ul>
+                  <button onClick={() => setShowUpdateForm(!showUpdateForm)}>
+                    {showUpdateForm ? 'Cancel Update' : 'Update Goals'}
+                  </button>
+                  {showUpdateForm && (
+                    <form onSubmit={handleGoalSubmission}>
+                      {/* Your form input fields and submit button go here */}
+                      <label>
+                        Updated Weight Loss Goal:
+                        <input
+                          type="text"
+                          name="weightLossGoal"
+                          value={goalForm.weightLossGoal}
+                          onChange={handleInputChange}
+                        />
+                      </label>
+                      <label>
+                      Body Fat Goal:
+                      <input
+                        type="text"
+                        name="bodyFatGoal"
+                        value={goalForm.bodyFatGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label>
+                      Fastest Mile Goal:
+                      <input
+                        type="text"
+                        name="fastestMileGoal"
+                        value={goalForm.fastestMileGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label>
+                      Personal Record Goal:
+                      <input
+                        type="text"
+                        name="personalRecordGoal"
+                        value={goalForm.personalRecordGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                      {/* Add similar fields for other goals */}
+                      <button type="submit">Update Goals</button>
+                    </form>
+                  )}
+                </div>
+              ) : (
+                <div className='outline set-goals'>
+                  <h2>Set Your Goals In development coming soon... </h2>
+                  <form onSubmit={handleGoalSubmission}>
+                    <label>
+                      Weight Loss Goal:
+                      <input
+                        type="text"
+                        name="weightLossGoal"
+                        value={goalForm.weightLossGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label>
+                      Body Fat Goal:
+                      <input
+                        type="text"
+                        name="bodyFatGoal"
+                        value={goalForm.bodyFatGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label>
+                      Fastest Mile Goal:
+                      <input
+                        type="text"
+                        name="fastestMileGoal"
+                        value={goalForm.fastestMileGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <label>
+                      Personal Record Goal:
+                      <input
+                        type="text"
+                        name="personalRecordGoal"
+                        value={goalForm.personalRecordGoal}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <button type="submit">Set Goals</button>
+                  </form>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -173,4 +259,5 @@ const Profile = () => {
     </div>
   );
 }
+
 export default Profile;

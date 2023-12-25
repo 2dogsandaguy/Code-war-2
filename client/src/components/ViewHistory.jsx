@@ -83,7 +83,8 @@ const ViewHistory = () => {
   justifyContent: 'center',
   alignItems: 'center',
   height: '100vh',
-  position: 'relative'
+  position: 'relative',
+  overflowY: 'auto',
 }}>
       <div className="history-container">
         <h1>Workout History</h1>

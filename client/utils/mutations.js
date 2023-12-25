@@ -24,25 +24,25 @@ export const LOGIN_USER = gql`
 `;
 
 export const SET_GOALS = gql`
-  mutation setGoals(
-    $weightLossGoal: String
-    $bodyFatGoal: String
-    $fastestMileGoal: String
-    $personalRecordGoal: String
+mutation setGoals($weightLossGoal: String, $bodyFatGoal: String, $fastestMileGoal: String, $personalRecordGoal: String) {
+  setGoals(
+    weightLossGoal: $weightLossGoal
+    bodyFatGoal: $bodyFatGoal
+    fastestMileGoal: $fastestMileGoal
+    personalRecordGoal: $personalRecordGoal
   ) {
-    setGoals(
-      weightLossGoal: $weightLossGoal
-      bodyFatGoal: $bodyFatGoal
-      fastestMileGoal: $fastestMileGoal
-      personalRecordGoal: $personalRecordGoal
-    ) {
-      _id
+    _id
+    setGoals {
+      createdAt
       weightLossGoal
       bodyFatGoal
       fastestMileGoal
       personalRecordGoal
     }
+    __typename
   }
+}
+
 `;
 
 export const ADD_USER = gql`

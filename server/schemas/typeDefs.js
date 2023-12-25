@@ -49,6 +49,7 @@ const typeDefs = `
   
   type Goals {
     _id: ID
+    createdAt: String
     weightLossGoal: String
     bodyFatGoal: String
     fastestMileGoal: String

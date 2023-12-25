@@ -24,6 +24,9 @@ function CreateWorkout() {
   const [sets, setSets] = useState('');
   const [weightAmount, setWeightAmount] = useState('');
   const [weightType, setWeightType] = useState('');
+
+  const [cardioPersonalRecord, setCardioPersonalRecord] = useState(null);
+  const [weightsPersonalRecord, setWeightsPersonalRecord] = useState(null);
   // Use the useMutation hook here
   const [createCardio] = useMutation(CREATE_CARDIO, {
     refetchQueries: [
@@ -51,10 +54,18 @@ function CreateWorkout() {
       });
 
       console.log('Cardio created successfully:', data.createCardio);
-    } catch (error) {
-      console.error('Error creating cardio:', error);
+    // Update personal record if applicable
+    if (!cardioPersonalRecord || parseFloat(distance) > cardioPersonalRecord.distance) {
+      setCardioPersonalRecord({
+        cardioType,
+        distance: parseFloat(distance),
+        duration: parseInt(duration),
+      });
     }
-  };
+  } catch (error) {
+    console.error('Error creating cardio:', error);
+  }
+};
 
   const handleCreateWeights = async () => {
     try {
@@ -71,10 +82,22 @@ function CreateWorkout() {
       });
 
       console.log('Weights created successfully:', data.createWeights);
-    } catch (error) {
-      console.error('Error creating cardio/weights:', error.message);
+    // Update personal record if applicable
+    if (!weightsPersonalRecord || parseInt(weightAmount) > weightsPersonalRecord.weightAmount) {
+      setWeightsPersonalRecord({
+        weightType,
+        reps: parseInt(reps),
+        sets: parseInt(sets),
+        weightAmount: parseInt(weightAmount),
+        weightKind,
+        weightDuration,
+        weiDuration,
+      });
     }
-  };
+  } catch (error) {
+    console.error('Error creating cardio/weights:', error.message);
+  }
+};
 
   // Define handleRepsChange and similar functions for other weight-related state variables
   const handleRepsChange = (event) => {

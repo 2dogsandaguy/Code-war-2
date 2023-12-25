@@ -2,7 +2,7 @@
   display: flex;
   color: #001f3f; /* Navy blue text */
   font-family: Arial, sans-serif; /* Use a legible font */
-  padding-top: 20px; /* Push content down */
+  padding-top: 250px; 
   flex-direction: column;
   align-items: center;
 }
@@ -61,11 +61,13 @@ ul {
 }
 
 .logout {
-  position: absolute;
-  top: 10px; 
-  right: 10px; 
+  position: fixed;
+  top: 0;
+  right: 10px;
+  background-color:white;/*  rgba(255, 253, 253, 0.5); */
+  padding: 10px;
   color: white;
   cursor: pointer;
-  font-size: 14px; 
-  
+  font-size: 14px;
+  z-index: 1000; /* Adjust the z-index to ensure it's above other elements */
 }

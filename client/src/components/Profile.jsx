@@ -13,6 +13,8 @@ const Profile = () => {
   const location = useLocation();
   const { workoutData } = location.state || {};
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  
+  
   const { loading, error, data } = useQuery(GET_ME);
   const [setGoalsMutation] = useMutation(SET_GOALS);
   const [goalForm, setGoalForm] = useState({
@@ -79,11 +81,11 @@ const Profile = () => {
         backgroundImage: `url(${profileImg})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        overflow: 'hidden',
+        /* overflow: 'hidden', */
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        Height: '100vh',
         position: 'relative',
         overflowY: 'auto',
       }}
